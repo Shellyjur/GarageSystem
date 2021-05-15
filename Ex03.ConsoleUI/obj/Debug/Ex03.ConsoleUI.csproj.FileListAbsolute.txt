@@ -1,0 +1,9 @@
+C:\Users\zurbinsky\source\repos\GarageSystem\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csproj.CoreCompileInputs.cache
+C:\Users\zurbinsky\source\repos\GarageSystem\Ex03.ConsoleUI\bin\Debug\Ex03.ConsoleUI.exe
+C:\Users\zurbinsky\source\repos\GarageSystem\Ex03.ConsoleUI\bin\Debug\Ex03.ConsoleUI.pdb
+C:\Users\zurbinsky\source\repos\GarageSystem\Ex03.ConsoleUI\bin\Debug\examp.exe
+C:\Users\zurbinsky\source\repos\GarageSystem\Ex03.ConsoleUI\bin\Debug\examp.pdb
+C:\Users\zurbinsky\source\repos\GarageSystem\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csprojAssemblyReference.cache
+C:\Users\zurbinsky\source\repos\GarageSystem\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csproj.CopyComplete
+C:\Users\zurbinsky\source\repos\GarageSystem\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.exe
+C:\Users\zurbinsky\source\repos\GarageSystem\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.pdb
