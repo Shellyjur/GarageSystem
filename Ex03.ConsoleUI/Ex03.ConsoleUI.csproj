@@ -35,8 +35,8 @@
     <Compile Include="GarageUI.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\examp\Ex03.GarageLogic.csproj">
-      <Project>{b482c879-7ce7-4177-a83f-020404427737}</Project>
+    <ProjectReference Include="..\Ex03.GarageLogic\Ex03.GarageLogic.csproj">
+      <Project>{658fa53c-bed6-4d07-94e1-1bd52755596a}</Project>
       <Name>Ex03.GarageLogic</Name>
     </ProjectReference>
   </ItemGroup>

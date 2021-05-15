@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C135C7FD-990A-4552-8BB0-BAD6109B6989}</ProjectGuid>
+    <ProjectGuid>{658FA53C-BED6-4D07-94E1-1BD52755596A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Ex03.GarageLogic</RootNamespace>
     <AssemblyName>Ex03.GarageLogic</AssemblyName>
