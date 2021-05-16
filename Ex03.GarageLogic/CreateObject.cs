@@ -19,7 +19,7 @@ namespace Ex03.GarageLogic
         //}
         internal static ElectricCar CreateElectricCar(List<object> i_ElectricCarInfo)
         {
-            ElectricCar electricCarObj = new ElectricCar((eAmountOfDoors)i_ElectricCarInfo[0], (eColorOfTheCar)i_ElectricCarInfo[1], (float)i_ElectricCarInfo[2], (float)i_ElectricCarInfo[3], (string)i_ElectricCarInfo[4], (string)i_ElectricCarInfo[5]));
+            ElectricCar electricCarObj = new ElectricCar((eAmountOfDoors)i_ElectricCarInfo[0], (eColorOfTheCar)i_ElectricCarInfo[1], (float)i_ElectricCarInfo[2], (float)i_ElectricCarInfo[3], (string)i_ElectricCarInfo[4], (string)i_ElectricCarInfo[5]);
             return electricCarObj;
         }
 
