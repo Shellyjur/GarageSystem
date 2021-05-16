@@ -233,6 +233,18 @@ namespace Ex03.GarageLogic
             if (GarageInventory.ContainsKey(i_LicenseNumber))
             {
                 existsOrNot = true;
+            }
+
+            return existsOrNot;
+        }
+
+        public bool IsInSystem(string i_LicenseNumber)
+        {
+            bool existsOrNot = false;
+
+            if (GarageInventory.ContainsKey(i_LicenseNumber))
+            {
+                existsOrNot = true;
                 GarageInventory[i_LicenseNumber].Status = eVehicleFixingStatus.InRepairing;
             }
 
@@ -467,6 +479,52 @@ namespace Ex03.GarageLogic
                         }
                         ((valueObject.Value.CustomerVehicle) as ElectricMotorcycle).BatteryTimeRemainingInHours += convertMinutesToHours;
                     }
+                }
+            }
+        }
+        //seif 7
+        public void AllInformation(out string i_GeneralInformation, string i_LicenseId)
+        {
+            i_GeneralInformation = string.Empty;
+            // מספר טלפון, שם בעלים, מצב במוסך, מספר רישוי, דגם, פירוט גלגלים
+            //גלגלים- מספר, יצרן, אוויר נוכחי, אוויר מקסימלי
+            //מצב דלק + סוג דלק ----- מצב חשמל + סוג חשמל
+            //אוטו - דלתות וצבע, אופנוע - נפח מנוע ורישיון, משאית - חומרים מסוכנים ומשקל נשיאה מקסימלי
+
+            i_GeneralInformation += string.Format("The license number is: {0}\n", i_LicenseId);
+            i_GeneralInformation += string.Format("The vehicle owner name is: {0}\n", GarageInventory[i_LicenseId].CarOwner);
+            i_GeneralInformation += string.Format("The vehicle owner phone number is: {0}\n", GarageInventory[i_LicenseId].OwnerPhone);
+            i_GeneralInformation += string.Format("The vehicle status is: {0}\n", GarageInventory[i_LicenseId].Status);
+            i_GeneralInformation += string.Format("The vehicle model is: {0}\n", GarageInventory[i_LicenseId].CustomerVehicle.ModelName);
+            i_GeneralInformation += string.Format("The percentage of energy left is: {0}\n", GarageInventory[i_LicenseId].CustomerVehicle.PercentageOfEnergyleft);
+            i_GeneralInformation += string.Format("The wheel air pressure is: {0} and the manufacturer is: {1}\n", GarageInventory[i_LicenseId].CustomerVehicle.WheelCollection[0].CurrentAirPressure, GarageInventory[i_LicenseId].CustomerVehicle.WheelCollection[0].Manufacturer);
+            if (GarageInventory[i_LicenseId].CustomerVehicle is ElectricVehicle)
+            {
+                i_GeneralInformation += string.Format("The remaining battery is: {0}\n", (GarageInventory[i_LicenseId].CustomerVehicle as ElectricVehicle).BatteryTimeRemainingInHours);
+                if(GarageInventory[i_LicenseId].CustomerVehicle is ElectricCar)
+                {
+                    i_GeneralInformation += string.Format("The amount of doors is: {0} and the vehicle car is: {1}\n", (GarageInventory[i_LicenseId].CustomerVehicle as ElectricCar).CarDoors, (GarageInventory[i_LicenseId].CustomerVehicle as ElectricCar).CarColor);
+                }
+                if(GarageInventory[i_LicenseId].CustomerVehicle is ElectricMotorcycle)
+                {
+                    i_GeneralInformation += string.Format("The license type is: {0} and the engine volume of the motorcycle is: {1}\n", (GarageInventory[i_LicenseId].CustomerVehicle as ElectricMotorcycle).License, (GarageInventory[i_LicenseId].CustomerVehicle as ElectricMotorcycle).EngineVolume);
+                }
+                
+            }
+            if (GarageInventory[i_LicenseId].CustomerVehicle is FuelVehicle)
+            {
+                i_GeneralInformation += string.Format("The current amount of fuel type {0} is: {1}\n", (GarageInventory[i_LicenseId].CustomerVehicle as FuelVehicle).FuelType, (GarageInventory[i_LicenseId].CustomerVehicle as FuelVehicle).CurrentAmountOfFuelLiters);
+                if (GarageInventory[i_LicenseId].CustomerVehicle is FuelCar)
+                {
+                    i_GeneralInformation += string.Format("The amount of doors is: {0} and the vehicle car is: {1}\n", (GarageInventory[i_LicenseId].CustomerVehicle as FuelCar).CarDoors, (GarageInventory[i_LicenseId].CustomerVehicle as FuelCar).CarColor);
+                }
+                if (GarageInventory[i_LicenseId].CustomerVehicle is FuelMotorcycle)
+                {
+                    i_GeneralInformation += string.Format("The license type is: {0} and the engine volume of the motorcycle is: {1}\n", (GarageInventory[i_LicenseId].CustomerVehicle as FuelMotorcycle).License, (GarageInventory[i_LicenseId].CustomerVehicle as FuelMotorcycle).EngineVolume);
+                }
+                if (GarageInventory[i_LicenseId].CustomerVehicle is FuelTruck)
+                {
+                    i_GeneralInformation += string.Format("Does the truck carry dangerous substances? {0} The carry weight is: {1}\n", (GarageInventory[i_LicenseId].CustomerVehicle as FuelTruck).DangerousSubstance, (GarageInventory[i_LicenseId].CustomerVehicle as FuelTruck).MaximumCarryWeight);
                 }
             }
         }

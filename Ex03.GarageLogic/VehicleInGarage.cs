@@ -9,16 +9,17 @@ namespace Ex03.GarageLogic
         private Vehicle m_CustomerVehicle;
         private string m_VehicleOwner;
         private string m_OwnerPhone;
-        private eVehicleFixingStatus m_Status = eVehicleFixingStatus.InRepairing;
+        private eVehicleFixingStatus m_Status;
 
         public VehicleInGarage()
         {
-
+            m_Status = eVehicleFixingStatus.InRepairing;
         }
         public VehicleInGarage(string i_VehicleOwner, string i_OwnerPhone)
         {
             m_VehicleOwner = i_VehicleOwner;
             m_OwnerPhone = i_OwnerPhone;
+            m_Status = eVehicleFixingStatus.InRepairing;
             //m_Status = (eVehicleFixingStatus) i_Status;
         }
         public VehicleInGarage(Vehicle i_CustomerVehicle, string i_VehicleOwner,

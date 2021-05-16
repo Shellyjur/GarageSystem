@@ -125,6 +125,16 @@ namespace Ex03.ConsoleUI
                             }
                             break;
                         case 7:
+                            ShowVehicleFullData();
+                            userOptionFlag = DoYouWantToContinue();
+                            if (userOptionFlag == true)
+                            {
+                                PrintOptions();
+                            }
+                            else
+                            {
+                                userOptionFlag = false;
+                            }
                             break;
 
                     }
@@ -176,7 +186,7 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine("Please enter license number (5 digits)");
                     licenseInput = Console.ReadLine();
                     m_GarageObj.ValidateLicenseNumber(licenseInput);
-                    vehicleExists = m_GarageObj.VehicleExists(licenseInput);
+                    vehicleExists = m_GarageObj.IsInSystem(licenseInput);
                     if (vehicleExists == true)
                     {
                         Console.WriteLine("The vehicle exists in the System. The status was updated.\n");
@@ -853,7 +863,7 @@ namespace Ex03.ConsoleUI
                     {
                         if (valueObject.Value.Status == (eVehicleFixingStatus)Enum.Parse(typeof(eVehicleFixingStatus), userChoice))
                         {
-                            Console.WriteLine("This status is already exsist for this vehicle");
+                            Console.WriteLine("This status is already exist for this vehicle");
                         }
                         else
                         {
@@ -984,5 +994,26 @@ namespace Ex03.ConsoleUI
             }
 
        }
+        //seif 7
+        public static void ShowVehicleFullData()
+        {
+            string licenseId = string.Empty;
+            //List<object> fullInformation = new List<object>();
+            string fullInformation = string.Empty;
+
+
+            Console.WriteLine("Please enter the vehicle license:");
+            licenseId = Console.ReadLine();
+            if (m_GarageObj.VehicleExists(licenseId))
+            {
+                m_GarageObj.AllInformation(out fullInformation, licenseId);
+                Console.WriteLine(fullInformation);
+            }
+            else
+            {
+                Console.WriteLine("This vehicle does not exist in the system");
+            }
+            
+        }
     }
 }
