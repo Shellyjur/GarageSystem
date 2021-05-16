@@ -113,6 +113,16 @@ namespace Ex03.ConsoleUI
                             }
                             break;
                         case 6:
+                            ChargeVehicleOperatedByElectricity();
+                            userOptionFlag = DoYouWantToContinue();
+                            if (userOptionFlag == true)
+                            {
+                                PrintOptions();
+                            }
+                            else
+                            {
+                                userOptionFlag = false;
+                            }
                             break;
                         case 7:
                             break;
@@ -936,5 +946,43 @@ namespace Ex03.ConsoleUI
             }
                
         }
+        //seif 6
+       public static void ChargeVehicleOperatedByElectricity()
+       {
+           string licenseId = string.Empty;
+           string minutesToCharge = string.Empty;
+         //  float updatedMinutesToCharge = 0;
+           bool minutesToChargeFlag = false;
+
+           Console.WriteLine("Please enter the vehicle license:");
+           licenseId = Console.ReadLine();
+            while(!minutesToChargeFlag)
+            {
+                if (m_GarageObj.VehicleExists(licenseId))
+                {
+                    try
+                    {
+                        Console.WriteLine("How many minutes do you want to charge ?");
+                        minutesToCharge = Console.ReadLine();
+                        m_GarageObj.CheckMinutesAmount(minutesToCharge, licenseId);
+                        minutesToChargeFlag = true;
+                    }
+                    catch (FormatException fe)
+                    {
+                        Console.WriteLine("You entered wrong input. Please try again");
+                    }
+                    catch (ValueOutOfRangeException voore)
+                    {
+                        Console.WriteLine("You entered amount out of range. Please try again.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("This vehicle does not exist in the system");
+                    licenseId = string.Empty;
+                }
+            }
+
+       }
     }
 }

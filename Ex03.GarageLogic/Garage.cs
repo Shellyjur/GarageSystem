@@ -381,6 +381,7 @@ namespace Ex03.GarageLogic
                 }
             }
         }
+        // seif 5
         public void CheckFuelAmount(string i_FuelAmount, string i_LicenseID)
         {
             float updatedFuelAmount = 0;
@@ -396,31 +397,78 @@ namespace Ex03.GarageLogic
                 {
                     if (valueObject.Value.CustomerVehicle is FuelCar)
                     {
-                        if (updatedFuelAmount < 0f || updatedFuelAmount > 45f)
+                        float calculateAmount = ((valueObject.Value.CustomerVehicle) as FuelCar).CurrentAmountOfFuelLiters + updatedFuelAmount;
+                        //float maximumAmount = ((valueObject.Value.CustomerVehicle) as FuelCar).MaximumAmountOfFuelLiters;
+                        if (updatedFuelAmount < 0f || calculateAmount > 45f)
                         {
                             throw new ValueOutOfRangeException(0f, 45f);
                         }
+
+                        ((valueObject.Value.CustomerVehicle) as FuelCar).CurrentAmountOfFuelLiters += updatedFuelAmount;
                     }
 
                     if (valueObject.Value.CustomerVehicle is FuelMotorcycle)
                     {
-                        if (updatedFuelAmount < 0f || updatedFuelAmount > 6f)
+                        float calculateAmount = ((valueObject.Value.CustomerVehicle) as FuelMotorcycle).CurrentAmountOfFuelLiters + updatedFuelAmount;
+                        if (updatedFuelAmount < 0f || calculateAmount > 6f)
                         {
                             throw new ValueOutOfRangeException(0f, 6f);
                         }
+
+                        ((valueObject.Value.CustomerVehicle) as FuelMotorcycle).CurrentAmountOfFuelLiters += updatedFuelAmount;
                     }
 
                     if (valueObject.Value.CustomerVehicle is FuelTruck)
                     {
-                        if (updatedFuelAmount < 0f || updatedFuelAmount > 120f)
+                        float calculateAmount = ((valueObject.Value.CustomerVehicle) as FuelTruck).CurrentAmountOfFuelLiters + updatedFuelAmount;
+                        if (updatedFuelAmount < 0f || calculateAmount > 120f)
                         {
                             throw new ValueOutOfRangeException(0f, 120f);
                         }
+
+                        ((valueObject.Value.CustomerVehicle) as FuelTruck).CurrentAmountOfFuelLiters += updatedFuelAmount;
                     }
                 }
             }
             
         }
+        //seif 6
+        public void CheckMinutesAmount(string i_MinutesToCharge, string i_LicenseID)
+        {
+            float updatedMinutesToCharge = 0;
+            float convertMinutesToHours = 0f;
 
+            if (!float.TryParse(i_MinutesToCharge, out updatedMinutesToCharge))
+            {
+                throw new FormatException();
+            }
+
+            convertMinutesToHours = updatedMinutesToCharge / 60f;
+            foreach (KeyValuePair<string, VehicleInGarage> valueObject in GarageInventory)
+            {
+                if (valueObject.Key == i_LicenseID)
+                {
+                    if (valueObject.Value.CustomerVehicle is ElectricCar)
+                    {
+                        float calculateAmount = ((valueObject.Value.CustomerVehicle) as ElectricCar).BatteryTimeRemainingInHours + convertMinutesToHours;
+                        if (convertMinutesToHours < 0f || calculateAmount > 3.2f)
+                        {
+                            throw new ValueOutOfRangeException(0, 3.2f);
+                        }
+                        ((valueObject.Value.CustomerVehicle) as ElectricCar).BatteryTimeRemainingInHours += convertMinutesToHours;
+                    }
+
+                    if (valueObject.Value.CustomerVehicle is ElectricMotorcycle)
+                    {
+                        float calculateAmount = ((valueObject.Value.CustomerVehicle) as ElectricMotorcycle).BatteryTimeRemainingInHours + convertMinutesToHours;
+                        if (convertMinutesToHours < 0f || calculateAmount > 1.8f)
+                        {
+                            throw new ValueOutOfRangeException(0, 1.8f);
+                        }
+                        ((valueObject.Value.CustomerVehicle) as ElectricMotorcycle).BatteryTimeRemainingInHours += convertMinutesToHours;
+                    }
+                }
+            }
+        }
     }
 }
