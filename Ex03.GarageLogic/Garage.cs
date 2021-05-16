@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Ex03.ConsoleUI;
 
 namespace Ex03.GarageLogic
 {
@@ -347,6 +348,79 @@ namespace Ex03.GarageLogic
             }
            
         }
-        
+
+        public void FuelTypeMatch(string i_LicenseID, eFuelType i_FuelType)
+        {
+            foreach (KeyValuePair<string, VehicleInGarage> valueObject in GarageInventory)
+            {
+                if (valueObject.Key == i_LicenseID)
+                {
+                    if ((valueObject.Value.CustomerVehicle) is FuelCar)
+                    {
+                        if (((valueObject.Value.CustomerVehicle) as FuelCar).FuelType != i_FuelType)
+                        {
+                            throw new ArgumentException();
+                        }
+                    }
+
+                    if ((valueObject.Value.CustomerVehicle) is FuelMotorcycle)
+                    {
+                        if (((valueObject.Value.CustomerVehicle) as FuelMotorcycle).FuelType != i_FuelType)
+                        {
+                            throw new ArgumentException();
+                        }
+                    }
+
+                    if ((valueObject.Value.CustomerVehicle) is FuelTruck)
+                    {
+                        if (((valueObject.Value.CustomerVehicle) as FuelTruck).FuelType != i_FuelType)
+                        {
+                            throw new ArgumentException();
+                        }
+                    }
+                }
+            }
+        }
+        public void CheckFuelAmount(string i_FuelAmount, string i_LicenseID)
+        {
+            float updatedFuelAmount = 0;
+
+            if (!float.TryParse(i_FuelAmount, out updatedFuelAmount))
+            {
+                throw new FormatException();
+            }
+
+            foreach (KeyValuePair<string, VehicleInGarage> valueObject in GarageInventory)
+            {
+                if (valueObject.Key == i_LicenseID)
+                {
+                    if (valueObject.Value.CustomerVehicle is FuelCar)
+                    {
+                        if (updatedFuelAmount < 0f || updatedFuelAmount > 45f)
+                        {
+                            throw new ValueOutOfRangeException(0f, 45f);
+                        }
+                    }
+
+                    if (valueObject.Value.CustomerVehicle is FuelMotorcycle)
+                    {
+                        if (updatedFuelAmount < 0f || updatedFuelAmount > 6f)
+                        {
+                            throw new ValueOutOfRangeException(0f, 6f);
+                        }
+                    }
+
+                    if (valueObject.Value.CustomerVehicle is FuelTruck)
+                    {
+                        if (updatedFuelAmount < 0f || updatedFuelAmount > 120f)
+                        {
+                            throw new ValueOutOfRangeException(0f, 120f);
+                        }
+                    }
+                }
+            }
+            
+        }
+
     }
 }

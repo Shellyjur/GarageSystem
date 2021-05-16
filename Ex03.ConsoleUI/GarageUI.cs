@@ -514,7 +514,7 @@ namespace Ex03.ConsoleUI
             color = Console.ReadLine();
             while (color != "red" && color != "silver" && color != "white" && color != "black")
             {
-                Console.WriteLine("Please enter a correct color !\nred/ silver/ white, black");
+                Console.WriteLine("Please enter a correct color !\nred/ silver/ white/ black");
                 color = Console.ReadLine();
             }
 
@@ -876,7 +876,65 @@ namespace Ex03.ConsoleUI
         //SEIF 5
         public static void RefuelVehicleOperatedByFuel()
         {
+            string licenseId = string.Empty;
+            string typeOfFuel = string.Empty;
+            string amountToRefuel = string.Empty;
+            bool fuelTypeFlag = false;
+            eFuelType fuelType = eFuelType.Null;
+            
+            while (!fuelTypeFlag)
+            {
+                if (licenseId == String.Empty)
+                {
+                    Console.WriteLine("Please enter the vehicle license:");
+                    licenseId = Console.ReadLine();
+                }
 
+                if (m_GarageObj.VehicleExists(licenseId))
+                {
+                     Console.WriteLine("Please enter the fuel type : Soler/ Octan95/ Octan96/ Octan98");
+                     typeOfFuel = Console.ReadLine(); 
+                     try
+                     {
+                        //while (!fuelTypeFlag)
+                        while (typeOfFuel != "Soler" && typeOfFuel != "Octan95" && typeOfFuel != "Octan96" &&
+                            typeOfFuel != "Octan98")
+                        {
+                            Console.WriteLine("Please enter the  CORRECT fuel type : Soler/ Octan95/ Octan96/ Octan98");
+                            typeOfFuel = Console.ReadLine();
+                        }
+                        //else
+                        //{
+                        //    fuelTypeFlag = true;
+                        //}
+
+                        fuelType = (eFuelType) Enum.Parse(typeof(eFuelType), typeOfFuel);
+                        m_GarageObj.FuelTypeMatch(licenseId, fuelType);
+                        Console.WriteLine("How much fuel you want to refuel ?");
+                        amountToRefuel = Console.ReadLine();
+                        m_GarageObj.CheckFuelAmount(amountToRefuel, licenseId);
+                        fuelTypeFlag = true;
+                     }
+                     catch (ArgumentException ae)
+                     { 
+                         Console.WriteLine("This fuel type does not match the fuel type of the vehicle");
+                     }
+                     catch (FormatException fe)
+                     {
+                        Console.WriteLine("You entered wrong input. Please try again");
+                     }
+                     catch (ValueOutOfRangeException voore)
+                     {
+                        Console.WriteLine("You entered amount out of range. Please try again.");
+                     }
+                }
+                else 
+                {
+                        Console.WriteLine("This vehicle does not exist in the system");
+                        licenseId = string.Empty;
+                }
+            }
+               
         }
     }
 }
