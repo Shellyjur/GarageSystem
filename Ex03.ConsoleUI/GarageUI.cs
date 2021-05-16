@@ -77,6 +77,16 @@ namespace Ex03.ConsoleUI
                             }
                             break;
                         case 3:
+                            ChangeVehicleStatus();
+                            userOptionFlag = DoYouWantToContinue();
+                            if (userOptionFlag == true)
+                            {
+                                PrintOptions();
+                            }
+                            else
+                            {
+                                userOptionFlag = false;
+                            }
                             break;
                         case 4:
                             break;
@@ -127,7 +137,7 @@ namespace Ex03.ConsoleUI
             bool vehicleExists = false;
             string toContinue = string.Empty;
 
-            
+
             while (!flag)
             {
                 try
@@ -209,7 +219,7 @@ namespace Ex03.ConsoleUI
                     concreteVehicleParameters.Add(vehicleModel);
                     concreteVehicleParameters.Add(licenseInput);
                     temporaryVehicleInGarage.CustomerVehicle = m_GarageObj.CreateVehicle(eAllVehicleTypes.ElectricCar, concreteVehicleParameters, wheelsInformation);
-                    
+
                     m_GarageObj.GarageInventory.Add(licenseInput, temporaryVehicleInGarage);
                 }
                 else
@@ -268,7 +278,7 @@ namespace Ex03.ConsoleUI
                 {
                     ///////create obj of fuel motorcycle
                     Enum licenceType;
-                   //eLicenseType nullLicneseType = eLicenseType.Null;
+                    //eLicenseType nullLicneseType = eLicenseType.Null;
                     //eFuelType nullFuelType = eFuelType.Null;
                     int engineVolume;
                     float currentFuelAmount;
@@ -293,7 +303,7 @@ namespace Ex03.ConsoleUI
                     //////create obj of fuel truck
                     bool dangerousSubstance;
                     float maximumCarryWeight, currentFuelAmount, maxFuelAmount;
-                    
+
 
                     maxFuelAmount = 120f;
                     InsertWheelsInformation(eAllVehicleTypes.FuelTruck, out wheelsInformation);
@@ -318,7 +328,7 @@ namespace Ex03.ConsoleUI
             string manufacturerName = string.Empty;
             i_WheelCollection = null;
             //float currentAirPressure = 0;
-            
+
             Console.WriteLine("What is your manufacturer wheels name ? (up to 10 characters)");
             manufacturerName = Console.ReadLine();
             while (manufacturerName.Length > 10)
@@ -328,15 +338,15 @@ namespace Ex03.ConsoleUI
                 manufacturerName = Console.ReadLine();
             }
 
-            switch(i_VehicleType)
+            switch (i_VehicleType)
             {
                 case eAllVehicleTypes.ElectricCar:
-                    //WheelsInformation(4, manufacturerName, out i_WheelCollection, 32f);
-                    //return i_WheelCollection;
+                //WheelsInformation(4, manufacturerName, out i_WheelCollection, 32f);
+                //return i_WheelCollection;
                 case eAllVehicleTypes.FuelCar:
                     WheelsInformation(4, manufacturerName, out i_WheelCollection, 32f);
                     return i_WheelCollection;
-                case eAllVehicleTypes.ElectricMotorcycle:   
+                case eAllVehicleTypes.ElectricMotorcycle:
                 case eAllVehicleTypes.FuelMotorcycle:
                     WheelsInformation(2, manufacturerName, out i_WheelCollection, 30f);
                     return i_WheelCollection;
@@ -345,13 +355,13 @@ namespace Ex03.ConsoleUI
                     return i_WheelCollection;
                 default:
                     return i_WheelCollection;
-                   
+
 
 
             }
-            
 
-            
+
+
         }
 
         public static void GeneralInformation(out string o_CustomerName, out string o_CustomerPhoneNumber, string i_LicenseInput, out string o_VehicleModel)
@@ -554,7 +564,7 @@ namespace Ex03.ConsoleUI
         }
 
 
-        public static void CreateFuelVehicle( out float o_CurrentFuelAmount,float i_MaxFuelAmount)
+        public static void CreateFuelVehicle(out float o_CurrentFuelAmount, float i_MaxFuelAmount)
         {
             string typeOfFuel = string.Empty;
             string maxFuel = string.Empty;
@@ -625,6 +635,11 @@ namespace Ex03.ConsoleUI
                         Console.WriteLine("Please enter the current amount of fuel in the car (0-45)");
                     }
 
+                    if (i_MaxFuelAmount == 120f)
+                    {
+                        Console.WriteLine("Please enter the current amount of fuel in the car (0-120)");
+                    }
+
                     currentFuel = Console.ReadLine();
                     if (!float.TryParse(currentFuel, out o_CurrentFuelAmount))
                     {
@@ -680,6 +695,8 @@ namespace Ex03.ConsoleUI
                     {
                         throw new FormatException();
                     }
+
+                    maximumCarryWeightFlag = true;
                 }
                 catch (FormatException ex)
                 {
@@ -693,12 +710,12 @@ namespace Ex03.ConsoleUI
             float currentAirPressureUpdate = 0;
             string currentAirPressure = string.Empty;
             bool currentAirFlag = false;
-            
+
             i_ManufacturerName = string.Empty;
             i_WheelCollection = new List<object>();
             while (!currentAirFlag)
             {
-                Console.WriteLine("What is your wheel current air pressure (0, " + i_MaxAirPressure +") ?");
+                Console.WriteLine("What is your wheel current air pressure (0, " + i_MaxAirPressure + ") ?");
                 currentAirPressure = Console.ReadLine();
                 try
                 {
@@ -707,7 +724,7 @@ namespace Ex03.ConsoleUI
                         throw new FormatException();
                     }
 
-                    if(currentAirPressureUpdate < 0f || currentAirPressureUpdate > i_MaxAirPressure)
+                    if (currentAirPressureUpdate < 0f || currentAirPressureUpdate > i_MaxAirPressure)
                     {
                         throw new ValueOutOfRangeException(0, i_MaxAirPressure);
                     }
@@ -723,7 +740,7 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine("You entered amount out of range. Please try again.");
                 }
             }
-            
+
             i_WheelCollection.Add(i_ManufacturerName);
             i_WheelCollection.Add(currentAirPressureUpdate);
             i_WheelCollection.Add(i_MaxAirPressure);
@@ -735,44 +752,88 @@ namespace Ex03.ConsoleUI
         {
             string withFilter = string.Empty;
 
-            Console.WriteLine("Do you want to see the data filtered by specific status or not. press:\n1 -> yes\n 2-> no");
+            Console.WriteLine("Do you want to see the data filtered by specific status or not. press:\n1 -> yes\n2-> no");
             withFilter = Console.ReadLine();
-            while(withFilter != "1" && withFilter != "2")
+            while (withFilter != "1" && withFilter != "2")
             {
                 Console.WriteLine("Wrong input try again");
-                Console.WriteLine("Do you want to see the data filtered by specific status or not. press:\n1 -> yes\n 2-> no");
+                Console.WriteLine("Do you want to see the data filtered by specific status or not. press:\n1 -> yes\n2-> no");
                 withFilter = Console.ReadLine();
             }
             ShowVehiclesLicensingNumbers(withFilter);
-
-
-
         }
         public static void ShowVehiclesLicensingNumbers(string i_WithFilter)
         {
             string statusChoice = string.Empty;
 
-            if(i_WithFilter == "1")
+            if (i_WithFilter == "1")
             {
                 eVehicleFixingStatus vehicleStatus;
 
                 Console.WriteLine("Which status you want to filter by: \n(1) -> Fixed\n(2) -> InRepairing\n(3) -> Paid");
                 statusChoice = Console.ReadLine();
-                while(statusChoice != "1" && statusChoice != "2" && statusChoice != "3")
+                while (statusChoice != "1" && statusChoice != "2" && statusChoice != "3")
                 {
                     Console.WriteLine("You enterd wrong input. Please try again");
                     Console.WriteLine("Which status you want to filter by: \n(1) -> Fixed\n(2) -> InRepairing\n(3) -> Paid");
                     statusChoice = Console.ReadLine();
                 }
-                vehicleStatus = (eVehicleFixingStatus)Enum.Parse(typeof(eVehicleFixingStatus), statusChoice);
-                foreach (VehicleInGarage valueObject in m_GarageObj.GarageInventory.Values)
-                {
-                    if (valueObject.Status == vehicleStatus)
-                    {
 
+                vehicleStatus = (eVehicleFixingStatus)Enum.Parse(typeof(eVehicleFixingStatus), statusChoice);
+                Console.WriteLine("The licenses that match the chosen status: " + vehicleStatus + " are:");
+                foreach (KeyValuePair<string, VehicleInGarage> valueObject in m_GarageObj.GarageInventory)
+                {
+                    if (valueObject.Value.Status == vehicleStatus)
+                    {
+                        Console.WriteLine(valueObject.Key);
                     }
                 }
+            }
+            else
+            {
+                Console.WriteLine("The licenses are:");
+                foreach (KeyValuePair<string, VehicleInGarage> valueObject in m_GarageObj.GarageInventory)
+                {
+                    Console.WriteLine(valueObject.Key + " - " + valueObject.Value.Status);
+                }
+            }
+        }
+        public static void ChangeVehicleStatus()
+        {
+            string licenseId = string.Empty;
 
+            Console.WriteLine("Please enter the vehicle license which you want to change status");
+            licenseId = Console.ReadLine();
+            if (m_GarageObj.VehicleExists(licenseId))
+            {
+                string userChoice = string.Empty;
+
+                Console.WriteLine("To which status you would like to change:\n(1)Fixed\n(2)InRepairing\n(3)Paid");
+                userChoice = Console.ReadLine();
+                while (userChoice != "1" && userChoice != "2" && userChoice != "3")
+                {
+                    Console.WriteLine("Wrong choice");
+                    Console.WriteLine("To which status you would like to change:\n(1)Fixed\n(2)InRepairing\n(3)Paid");
+                    userChoice = Console.ReadLine();
+                }
+                foreach (KeyValuePair<string, VehicleInGarage> valueObject in m_GarageObj.GarageInventory)
+                {
+                    if (valueObject.Key == licenseId)
+                    {
+                        if (valueObject.Value.Status == (eVehicleFixingStatus)Enum.Parse(typeof(eVehicleFixingStatus), userChoice))
+                        {
+                            Console.WriteLine("This status is already exsist for this vehicle");
+                        }
+                        else
+                        {
+                            valueObject.Value.Status = (eVehicleFixingStatus)Enum.Parse(typeof(eVehicleFixingStatus), userChoice);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("This license does not exsist in the system hence we can't change the status");
             }
         }
     }

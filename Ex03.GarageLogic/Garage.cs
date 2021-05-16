@@ -267,27 +267,27 @@ namespace Ex03.GarageLogic
 
                 case eAllVehicleTypes.ElectricCar:
                     tempConcreteVehicle = CreateObject.CreateElectricCar(i_ConcreteVehicleParameters);
-                    tempConcreteVehicle.ModelName = (string)i_ConcreteVehicleParameters[i_ConcreteVehicleParameters.Count-1];
+                    //tempConcreteVehicle.ModelName = (string)i_ConcreteVehicleParameters[i_ConcreteVehicleParameters.Count-1];
                     tempConcreteVehicle.WheelCollection = CreateWheelList(i_WheelsInformation);
                     return tempConcreteVehicle;
                 case eAllVehicleTypes.FuelCar:
                     tempConcreteVehicle = CreateObject.CreateFuelCar(i_ConcreteVehicleParameters);
-                    tempConcreteVehicle.ModelName = (string)i_ConcreteVehicleParameters[i_ConcreteVehicleParameters.Count - 1];
+                    //tempConcreteVehicle.ModelName = (string)i_ConcreteVehicleParameters[i_ConcreteVehicleParameters.Count - 1];
                     tempConcreteVehicle.WheelCollection = CreateWheelList(i_WheelsInformation);
                     return tempConcreteVehicle;
                 case eAllVehicleTypes.ElectricMotorcycle:
                     tempConcreteVehicle = CreateObject.CreateElectricMotorcycle(i_ConcreteVehicleParameters);
-                    tempConcreteVehicle.ModelName = (string)i_ConcreteVehicleParameters[i_ConcreteVehicleParameters.Count - 1];
+                    //tempConcreteVehicle.ModelName = (string)i_ConcreteVehicleParameters[i_ConcreteVehicleParameters.Count - 1];
                     tempConcreteVehicle.WheelCollection = CreateWheelList(i_WheelsInformation);
                     return tempConcreteVehicle;
                 case eAllVehicleTypes.FuelMotorcycle:
                     tempConcreteVehicle = CreateObject.CreateFuelMotorcycle(i_ConcreteVehicleParameters);
-                    tempConcreteVehicle.ModelName = (string)i_ConcreteVehicleParameters[i_ConcreteVehicleParameters.Count - 1];
+                    //tempConcreteVehicle.ModelName = (string)i_ConcreteVehicleParameters[i_ConcreteVehicleParameters.Count - 1];
                     tempConcreteVehicle.WheelCollection = CreateWheelList(i_WheelsInformation);
                     return tempConcreteVehicle;
                 case eAllVehicleTypes.FuelTruck:
                     tempConcreteVehicle = CreateObject.CreateFuelTruck(i_ConcreteVehicleParameters);
-                    tempConcreteVehicle.ModelName = (string)i_ConcreteVehicleParameters[i_ConcreteVehicleParameters.Count - 1];
+                    //tempConcreteVehicle.ModelName = (string)i_ConcreteVehicleParameters[i_ConcreteVehicleParameters.Count - 1];
                     tempConcreteVehicle.WheelCollection = CreateWheelList(i_WheelsInformation);
                     return tempConcreteVehicle;
                 default:
