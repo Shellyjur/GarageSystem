@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    public struct Wheels
+    public class Wheels
     {
         private String m_Manufacturer;//static same model to all
         private float m_CurrentAirPressure;
@@ -50,9 +50,9 @@ namespace Ex03.GarageLogic
 
 
         //not static - check why
-        public void Inflation(float i_AirToAdd)//after exeption check? no exeption in air pressure
+        public void Inflation(float i_MaxAir)//after exeption check? no exeption in air pressure
         {
-            this.m_CurrentAirPressure += i_AirToAdd;
+            this.CurrentAirPressure = i_MaxAir;
         }
     }
 }

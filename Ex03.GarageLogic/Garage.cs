@@ -310,6 +310,43 @@ namespace Ex03.GarageLogic
 
             return wheelsCollection;
         }
+
+        public void InflateToMaximum(string i_LicenseID)
+        {
+            foreach (KeyValuePair<string, VehicleInGarage> valueObject in GarageInventory)
+            {
+                if (valueObject.Key == i_LicenseID)
+                {
+                    if ((valueObject.Value.CustomerVehicle is ElectricCar) ||
+                        (valueObject.Value.CustomerVehicle is FuelCar))
+                    {
+                        foreach (Wheels wheel in valueObject.Value.CustomerVehicle.WheelCollection)
+                        {
+                            wheel.CurrentAirPressure = 32f;
+                        }
+                    }
+
+                    if ((valueObject.Value.CustomerVehicle is ElectricMotorcycle) ||
+                        (valueObject.Value.CustomerVehicle is ElectricMotorcycle))
+                    {
+                        foreach (Wheels wheel in valueObject.Value.CustomerVehicle.WheelCollection)
+                        {
+                            wheel.Inflation(30f);
+                        }
+                    }
+
+                    if (valueObject.Value.CustomerVehicle is FuelTruck)
+                    {
+                        foreach (Wheels wheel in valueObject.Value.CustomerVehicle.WheelCollection)
+                        {
+                            wheel.Inflation(26f);
+                        }
+                    }
+                }
+                
+            }
+           
+        }
         
     }
 }

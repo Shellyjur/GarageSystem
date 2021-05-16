@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    abstract class ElectricVehicle : Vehicle
+    public abstract class ElectricVehicle : Vehicle
     {
         private float m_BatteryTimeRemainingInHours;
         private float m_MaximumBatteryTimeInHours;

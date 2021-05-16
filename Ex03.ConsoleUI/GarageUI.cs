@@ -89,8 +89,28 @@ namespace Ex03.ConsoleUI
                             }
                             break;
                         case 4:
+                            InflateVehicleWheelsToMaximum();
+                            userOptionFlag = DoYouWantToContinue();
+                            if (userOptionFlag == true)
+                            {
+                                PrintOptions();
+                            }
+                            else
+                            {
+                                userOptionFlag = false;
+                            }
                             break;
                         case 5:
+                            RefuelVehicleOperatedByFuel();
+                            userOptionFlag = DoYouWantToContinue();
+                            if (userOptionFlag == true)
+                            {
+                                PrintOptions();
+                            }
+                            else
+                            {
+                                userOptionFlag = false;
+                            }
                             break;
                         case 6:
                             break;
@@ -115,6 +135,7 @@ namespace Ex03.ConsoleUI
 
             Console.WriteLine("Do you want to return to the main menu for more options ? \n1 -> yes OR 2 -> No\n ");
             input = Console.ReadLine();
+            
             while (input != "1" && input != "2")
             {
                 Console.WriteLine("Wrong choice. Enter again");
@@ -711,7 +732,6 @@ namespace Ex03.ConsoleUI
             string currentAirPressure = string.Empty;
             bool currentAirFlag = false;
 
-            i_ManufacturerName = string.Empty;
             i_WheelCollection = new List<object>();
             while (!currentAirFlag)
             {
@@ -774,7 +794,7 @@ namespace Ex03.ConsoleUI
                 statusChoice = Console.ReadLine();
                 while (statusChoice != "1" && statusChoice != "2" && statusChoice != "3")
                 {
-                    Console.WriteLine("You enterd wrong input. Please try again");
+                    Console.WriteLine("You entered wrong input. Please try again");
                     Console.WriteLine("Which status you want to filter by: \n(1) -> Fixed\n(2) -> InRepairing\n(3) -> Paid");
                     statusChoice = Console.ReadLine();
                 }
@@ -798,6 +818,7 @@ namespace Ex03.ConsoleUI
                 }
             }
         }
+        //SEIF 3
         public static void ChangeVehicleStatus()
         {
             string licenseId = string.Empty;
@@ -835,6 +856,27 @@ namespace Ex03.ConsoleUI
             {
                 Console.WriteLine("This license does not exsist in the system hence we can't change the status");
             }
+        }
+        //SEIF 4
+        public static void InflateVehicleWheelsToMaximum()
+        {
+            string licenseId = string.Empty;
+
+            Console.WriteLine("Please enter the vehicle license:");
+            licenseId = Console.ReadLine();
+            if (m_GarageObj.VehicleExists(licenseId))
+            {
+               m_GarageObj.InflateToMaximum(licenseId);
+            }
+            else
+            {
+                Console.WriteLine("This vehicle does not exist in the system");
+            }
+        }
+        //SEIF 5
+        public static void RefuelVehicleOperatedByFuel()
+        {
+
         }
     }
 }
