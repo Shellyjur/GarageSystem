@@ -8,7 +8,7 @@ namespace Ex03.ConsoleUI
 {
     public class GarageUI
     {
-        static Garage m_GarageObj = new Garage();
+        static readonly Garage m_GarageObj = new Garage();
         public Garage GarageObj
         {
             get
@@ -142,7 +142,8 @@ namespace Ex03.ConsoleUI
                 }
                 catch (FormatException fex)
                 {
-                    Console.WriteLine("You entered a wrong input");
+                    //Console.WriteLine("You entered a wrong input");
+                    Console.WriteLine(fex.Message);
                     EntryPoint();
                 }
             }
@@ -206,7 +207,8 @@ namespace Ex03.ConsoleUI
                 }
                 catch (FormatException fex)
                 {
-                    Console.WriteLine("You entered an invalid license. Please try again.");
+                    //Console.WriteLine("You entered an invalid license. Please try again.");
+                    Console.WriteLine(fex.Message);
                 }
             }
         }
@@ -496,19 +498,20 @@ namespace Ex03.ConsoleUI
                 {
                     if (!int.TryParse(engineInput, out o_EngineVolume))
                     {
-                        throw new FormatException();
+                        throw new FormatException("You entered a wrong input.Please try again.");
                     }
                     engineInputFlag = true;
                 }
                 catch (FormatException ex)
                 {
-                    Console.WriteLine("You entered an invalid input. Please try again.");
+                    //Console.WriteLine("You entered an invalid input. Please try again.");
+                    Console.WriteLine(ex.Message);
                 }
             }
 
             Console.WriteLine("Enter licence type: A, B1, AA, BB (with UPPER CASE letters)");
             licenseInput = Console.ReadLine();
-            while (licenseInput != "A" && licenseInput != "B1" && licenseInput != "BB" && licenseInput != "BB")
+            while (licenseInput != "A" && licenseInput != "AA" && licenseInput != "B1" && licenseInput != "BB" && licenseInput != "BB")
             {
                 Console.WriteLine("Wrong input. Enter license type: A, B1, AA, BB (with UPPER CASE)");
                 licenseInput = Console.ReadLine();
@@ -577,7 +580,7 @@ namespace Ex03.ConsoleUI
                     timeRemaining = Console.ReadLine();
                     if (!float.TryParse(timeRemaining, out o_BatteryTimeRemainingInHours))
                     {
-                        throw new FormatException();
+                        throw new FormatException("You entered a wrong input.Please try again.");
                     }
 
                     if (o_BatteryTimeRemainingInHours > i_MaximumBatteryTimeInHours)
@@ -589,11 +592,13 @@ namespace Ex03.ConsoleUI
                 }
                 catch (FormatException ex)
                 {
-                    Console.WriteLine("You entered an invalid input. Please try again.");
+                    //Console.WriteLine("You entered an invalid input. Please try again.");
+                    Console.WriteLine(ex.Message);
                 }
                 catch (ValueOutOfRangeException voore)
                 {
-                    Console.WriteLine("You entered amount out of range. Please try again.");
+                    Console.WriteLine(voore.Message);
+                   // Console.WriteLine("You entered amount out of range. Please try again.");
                 }
             }
         }
@@ -678,7 +683,7 @@ namespace Ex03.ConsoleUI
                     currentFuel = Console.ReadLine();
                     if (!float.TryParse(currentFuel, out o_CurrentFuelAmount))
                     {
-                        throw new FormatException();
+                        throw new FormatException("You entered a wrong input.Please try again.");
                     }
 
                     if (o_CurrentFuelAmount < 0 || o_CurrentFuelAmount > i_MaxFuelAmount)
@@ -690,11 +695,13 @@ namespace Ex03.ConsoleUI
                 }
                 catch (FormatException ex)
                 {
-                    Console.WriteLine("You entered a wrong input. Please try again.");
+                    //Console.WriteLine("You entered a wrong input. Please try again.");
+
                 }
                 catch (ValueOutOfRangeException voore)
                 {
-                    Console.WriteLine("You entered a unreasonable value. Please try again.");
+                    Console.WriteLine(voore.Message);
+                    //Console.WriteLine("You entered a unreasonable value. Please try again.");
                 }
             }
         }
@@ -728,14 +735,15 @@ namespace Ex03.ConsoleUI
                     maximumCarryInput = Console.ReadLine();
                     if (!float.TryParse(maximumCarryInput, out o_MaximumCarryWeight))
                     {
-                        throw new FormatException();
+                        throw new FormatException("You entered a wrong input.Please try again.");
                     }
 
                     maximumCarryWeightFlag = true;
                 }
                 catch (FormatException ex)
                 {
-                    Console.WriteLine("You entered a wrong input. Please try again.");
+                    Console.WriteLine(ex.Message);
+                    //Console.WriteLine("You entered a wrong input. Please try again.");
                 }
             }
         }
@@ -755,7 +763,7 @@ namespace Ex03.ConsoleUI
                 {
                     if (!float.TryParse(currentAirPressure, out currentAirPressureUpdate))
                     {
-                        throw new FormatException();
+                        throw new FormatException("You entered a wrong input.Please try again.");
                     }
 
                     if (currentAirPressureUpdate < 0f || currentAirPressureUpdate > i_MaxAirPressure)
@@ -766,12 +774,14 @@ namespace Ex03.ConsoleUI
                 }
                 catch (FormatException fex)
                 {
-                    Console.WriteLine("You entered an invalid license");
+                    //Console.WriteLine("You entered an invalid license");
+                    Console.WriteLine(fex.Message);
 
                 }
                 catch (ValueOutOfRangeException voore)
                 {
-                    Console.WriteLine("You entered amount out of range. Please try again.");
+                    //Console.WriteLine("You entered amount out of range. Please try again.");
+                    Console.WriteLine(voore.Message);
                 }
             }
 
@@ -907,41 +917,52 @@ namespace Ex03.ConsoleUI
 
                 if (m_GarageObj.VehicleExists(licenseId))
                 {
-                     Console.WriteLine("Please enter the fuel type : Soler/ Octan95/ Octan96/ Octan98");
-                     typeOfFuel = Console.ReadLine(); 
-                     try
-                     {
-                        //while (!fuelTypeFlag)
-                        while (typeOfFuel != "Soler" && typeOfFuel != "Octan95" && typeOfFuel != "Octan96" &&
-                            typeOfFuel != "Octan98")
+                    if (m_GarageObj.IsFuelOperated(licenseId))
+                    {
+                        Console.WriteLine("Please enter the fuel type : Soler/ Octan95/ Octan96/ Octan98");
+                        typeOfFuel = Console.ReadLine();
+                        try
                         {
-                            Console.WriteLine("Please enter the  CORRECT fuel type : Soler/ Octan95/ Octan96/ Octan98");
-                            typeOfFuel = Console.ReadLine();
-                        }
-                        //else
-                        //{
-                        //    fuelTypeFlag = true;
-                        //}
+                            //while (!fuelTypeFlag)
+                            while (typeOfFuel != "Soler" && typeOfFuel != "Octan95" && typeOfFuel != "Octan96" &&
+                                typeOfFuel != "Octan98")
+                            {
+                                Console.WriteLine("Please enter the  CORRECT fuel type : Soler/ Octan95/ Octan96/ Octan98");
+                                typeOfFuel = Console.ReadLine();
+                            }
+                            //else
+                            //{
+                            //    fuelTypeFlag = true;
+                            //}
 
-                        fuelType = (eFuelType) Enum.Parse(typeof(eFuelType), typeOfFuel);
-                        m_GarageObj.FuelTypeMatch(licenseId, fuelType);
-                        Console.WriteLine("How much fuel you want to refuel?");
-                        amountToRefuel = Console.ReadLine();
-                        m_GarageObj.CheckFuelAmount(amountToRefuel, licenseId);
+                            fuelType = (eFuelType)Enum.Parse(typeof(eFuelType), typeOfFuel);
+                            m_GarageObj.FuelTypeMatch(licenseId, fuelType);
+                            Console.WriteLine("How much fuel you want to refuel?");
+                            amountToRefuel = Console.ReadLine();
+                            m_GarageObj.CheckFuelAmount(amountToRefuel, licenseId);
+                            fuelTypeFlag = true;
+                        }
+                        catch (ArgumentException ae)
+                        {
+                            Console.WriteLine(ae.Message);
+                        }
+                        catch (FormatException ex)
+                        {
+                            //Console.WriteLine("You entered wrong input. Please try again");
+                            Console.WriteLine(ex.Message);
+                        }
+                        catch (ValueOutOfRangeException voore)
+                        {
+                            //Console.WriteLine("You entered amount out of range. Please try again.");
+                            Console.WriteLine(voore.Message);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("THIS IS AN ELECTRIC OPARATED VEHICLE!!");
                         fuelTypeFlag = true;
-                     }
-                     catch (ArgumentException ae)
-                     { 
-                         Console.WriteLine("This fuel type does not match the fuel type of the vehicle");
-                     }
-                     catch (FormatException fe)
-                     {
-                        Console.WriteLine("You entered wrong input. Please try again");
-                     }
-                     catch (ValueOutOfRangeException voore)
-                     {
-                        Console.WriteLine("You entered amount out of range. Please try again.");
-                     }
+                    }
+                     
                 }
                 else 
                 {
@@ -965,20 +986,30 @@ namespace Ex03.ConsoleUI
             {
                 if (m_GarageObj.VehicleExists(licenseId))
                 {
-                    try
+                    if (m_GarageObj.IsOperatedbyElectricity(licenseId))
                     {
-                        Console.WriteLine("How many minutes do you want to charge?");
-                        minutesToCharge = Console.ReadLine();
-                        m_GarageObj.CheckMinutesAmount(minutesToCharge, licenseId);
+                        try
+                        {
+                            Console.WriteLine("How many minutes do you want to charge?");
+                            minutesToCharge = Console.ReadLine();
+                            m_GarageObj.CheckMinutesAmount(minutesToCharge, licenseId);
+                            minutesToChargeFlag = true;
+                        }
+                        catch (FormatException ex)
+                        {
+                            //Console.WriteLine("You entered wrong input. Please try again.");
+                            Console.WriteLine(ex.Message);
+                        }
+                        catch (ValueOutOfRangeException voore)
+                        {
+                            //Console.WriteLine("You entered amount out of range. Please try again.");
+                            Console.WriteLine(voore.Message);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("THIS IS A FUEL OPARATED VEHICLE!!");
                         minutesToChargeFlag = true;
-                    }
-                    catch (FormatException fe)
-                    {
-                        Console.WriteLine("You entered wrong input. Please try again.");
-                    }
-                    catch (ValueOutOfRangeException voore)
-                    {
-                        Console.WriteLine("You entered amount out of range. Please try again.");
                     }
                 }
                 else
@@ -987,7 +1018,6 @@ namespace Ex03.ConsoleUI
                     licenseId = string.Empty;
                 }
             }
-
        }
         //seif 7
         public static void ShowVehicleFullData()

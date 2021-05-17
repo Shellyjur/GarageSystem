@@ -7,10 +7,10 @@ namespace Ex03.GarageLogic
     public abstract class ElectricVehicle : Vehicle
     {
         private float m_BatteryTimeRemainingInHours;
-        private float m_MaximumBatteryTimeInHours;
+        private readonly float m_MaximumBatteryTimeInHours;
 
         public ElectricVehicle(float i_BatteryTimeRemainingInHours, float i_MaximumBatteryTimeInHours, string i_ModelName, string i_Licensing) : 
-                   base(i_ModelName, i_Licensing, (i_BatteryTimeRemainingInHours/i_MaximumBatteryTimeInHours)*100)
+                   base(i_ModelName, i_Licensing, ((i_BatteryTimeRemainingInHours/i_MaximumBatteryTimeInHours)*100))
         {
             m_BatteryTimeRemainingInHours = i_BatteryTimeRemainingInHours;
             m_MaximumBatteryTimeInHours = i_MaximumBatteryTimeInHours;
@@ -33,10 +33,10 @@ namespace Ex03.GarageLogic
             {
                 return m_MaximumBatteryTimeInHours;
             }
-            set
-            {
-                m_MaximumBatteryTimeInHours = value;
-            }
+            //set
+            //{
+            //    m_MaximumBatteryTimeInHours = value;
+            //}
 
         }
         //יכול להיות שלא צריך אבסטרקט כי אין

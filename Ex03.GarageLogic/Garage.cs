@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
     public class Garage
     {
         //private List<VehicleInGarage> m_GarageInventory;
-        private Dictionary<string, VehicleInGarage> m_GarageInventory;
+        private readonly Dictionary<string, VehicleInGarage> m_GarageInventory;
 
         //public static void Main()
         //{
@@ -218,11 +218,11 @@ namespace Ex03.GarageLogic
             uint output=0;
             if (i_inputLicense.Length != 5)
             {
-                throw new FormatException();
+                throw new FormatException("You entered a wrong input.Please try again.");
             }
             else if(i_inputLicense[0] == '0'||!uint.TryParse(i_inputLicense, out output))
             {
-                throw new FormatException();
+                throw new FormatException("You entered a wrong input.Please try again.");
             }
             return output;
         }
@@ -257,7 +257,7 @@ namespace Ex03.GarageLogic
 
             if (!int.TryParse(userInput, out userInputParsed) || (userInputParsed > 7 || userInputParsed < 1))
             {
-                throw new FormatException();
+                throw new FormatException("You entered a wrong input.Please try again.");
             }
 
             return userInputParsed;
@@ -314,10 +314,10 @@ namespace Ex03.GarageLogic
             
             for (int i = 0 ; i < (int)i_WheelsParameters[i_WheelsParameters.Count - 1] ; i++)
             {
-                Wheels wheel = new Wheels();
-                wheel.Manufacturer = (string)i_WheelsParameters[0];
-                wheel.CurrentAirPressure = (float)i_WheelsParameters[1];
-                wheel.MaximumAirPressureByManufacturer = (float)i_WheelsParameters[2];
+                Wheels wheel = new Wheels((string)i_WheelsParameters[0], (float)i_WheelsParameters[1], (float)i_WheelsParameters[2]);
+                //wheel.Manufacturer = (string)i_WheelsParameters[0];
+                //wheel.CurrentAirPressure = (float)i_WheelsParameters[1];
+                //wheel.MaximumAirPressureByManufacturer = (float)i_WheelsParameters[2];
                 wheelsCollection.Add(wheel);
             }
 
@@ -371,7 +371,7 @@ namespace Ex03.GarageLogic
                     {
                         if (((valueObject.Value.CustomerVehicle) as FuelCar).FuelType != i_FuelType)
                         {
-                            throw new ArgumentException();
+                            throw new ArgumentException("This fuel type does not match the fuel type of the vehicle");
                         }
                     }
 
@@ -379,7 +379,7 @@ namespace Ex03.GarageLogic
                     {
                         if (((valueObject.Value.CustomerVehicle) as FuelMotorcycle).FuelType != i_FuelType)
                         {
-                            throw new ArgumentException();
+                            throw new ArgumentException("This fuel type does not match the fuel type of the vehicle");
                         }
                     }
 
@@ -387,7 +387,7 @@ namespace Ex03.GarageLogic
                     {
                         if (((valueObject.Value.CustomerVehicle) as FuelTruck).FuelType != i_FuelType)
                         {
-                            throw new ArgumentException();
+                            throw new ArgumentException("This fuel type does not match the fuel type of the vehicle");
                         }
                     }
                 }
@@ -400,7 +400,7 @@ namespace Ex03.GarageLogic
 
             if (!float.TryParse(i_FuelAmount, out updatedFuelAmount))
             {
-                throw new FormatException();
+                throw new FormatException("You entered a wrong input.Please try again.");
             }
 
             foreach (KeyValuePair<string, VehicleInGarage> valueObject in GarageInventory)
@@ -417,6 +417,7 @@ namespace Ex03.GarageLogic
                         }
 
                         ((valueObject.Value.CustomerVehicle) as FuelCar).CurrentAmountOfFuelLiters += updatedFuelAmount;
+                        ((valueObject.Value.CustomerVehicle) as FuelCar).PercentageOfEnergyleft += (updatedFuelAmount / 45f) * 100;
                     }
 
                     if (valueObject.Value.CustomerVehicle is FuelMotorcycle)
@@ -428,6 +429,7 @@ namespace Ex03.GarageLogic
                         }
 
                         ((valueObject.Value.CustomerVehicle) as FuelMotorcycle).CurrentAmountOfFuelLiters += updatedFuelAmount;
+                        ((valueObject.Value.CustomerVehicle) as FuelMotorcycle).PercentageOfEnergyleft += (updatedFuelAmount / 6f) * 100;
                     }
 
                     if (valueObject.Value.CustomerVehicle is FuelTruck)
@@ -439,6 +441,7 @@ namespace Ex03.GarageLogic
                         }
 
                         ((valueObject.Value.CustomerVehicle) as FuelTruck).CurrentAmountOfFuelLiters += updatedFuelAmount;
+                        ((valueObject.Value.CustomerVehicle) as FuelTruck).PercentageOfEnergyleft += (updatedFuelAmount / 120f) * 100;
                     }
                 }
             }
@@ -452,7 +455,7 @@ namespace Ex03.GarageLogic
 
             if (!float.TryParse(i_MinutesToCharge, out updatedMinutesToCharge))
             {
-                throw new FormatException();
+                throw new FormatException("You entered a wrong input.Please try again.");
             }
 
             convertMinutesToHours = updatedMinutesToCharge / 60f;
@@ -468,6 +471,7 @@ namespace Ex03.GarageLogic
                             throw new ValueOutOfRangeException(0, 3.2f);
                         }
                         ((valueObject.Value.CustomerVehicle) as ElectricCar).BatteryTimeRemainingInHours += convertMinutesToHours;
+                        ((valueObject.Value.CustomerVehicle) as ElectricCar).PercentageOfEnergyleft += (convertMinutesToHours / 3.2f) * 100;
                     }
 
                     if (valueObject.Value.CustomerVehicle is ElectricMotorcycle)
@@ -478,6 +482,7 @@ namespace Ex03.GarageLogic
                             throw new ValueOutOfRangeException(0, 1.8f);
                         }
                         ((valueObject.Value.CustomerVehicle) as ElectricMotorcycle).BatteryTimeRemainingInHours += convertMinutesToHours;
+                        ((valueObject.Value.CustomerVehicle) as ElectricMotorcycle).PercentageOfEnergyleft += (convertMinutesToHours / 1.8f) * 100;
                     }
                 }
             }
@@ -496,7 +501,7 @@ namespace Ex03.GarageLogic
             i_GeneralInformation += string.Format("The vehicle owner phone number is: {0}\n", GarageInventory[i_LicenseId].OwnerPhone);
             i_GeneralInformation += string.Format("The vehicle status is: {0}\n", GarageInventory[i_LicenseId].Status);
             i_GeneralInformation += string.Format("The vehicle model is: {0}\n", GarageInventory[i_LicenseId].CustomerVehicle.ModelName);
-            i_GeneralInformation += string.Format("The percentage of energy left is: {0}\n", GarageInventory[i_LicenseId].CustomerVehicle.PercentageOfEnergyleft);
+            i_GeneralInformation += string.Format("The percentage of energy left is: {0:0.00}%\n", GarageInventory[i_LicenseId].CustomerVehicle.PercentageOfEnergyleft);
             i_GeneralInformation += string.Format("The wheel air pressure is: {0} and the manufacturer is: {1}\n", GarageInventory[i_LicenseId].CustomerVehicle.WheelCollection[0].CurrentAirPressure, GarageInventory[i_LicenseId].CustomerVehicle.WheelCollection[0].Manufacturer);
             if (GarageInventory[i_LicenseId].CustomerVehicle is ElectricVehicle)
             {
@@ -527,6 +532,30 @@ namespace Ex03.GarageLogic
                     i_GeneralInformation += string.Format("Does the truck carry dangerous substances? {0} The carry weight is: {1}\n", (GarageInventory[i_LicenseId].CustomerVehicle as FuelTruck).DangerousSubstance, (GarageInventory[i_LicenseId].CustomerVehicle as FuelTruck).MaximumCarryWeight);
                 }
             }
+        }
+
+        public bool IsFuelOperated(string i_LicenseId)
+        {
+            bool isFuel = false;
+
+            if(GarageInventory[i_LicenseId].CustomerVehicle is FuelVehicle)
+            {
+                isFuel = true;
+            }
+
+            return isFuel;
+        }
+
+        public bool IsOperatedbyElectricity(string i_LicenseId)
+        {
+            bool isElectrical = false;
+
+            if (GarageInventory[i_LicenseId].CustomerVehicle is ElectricVehicle)
+            {
+                isElectrical = true;
+            }
+
+            return isElectrical;
         }
     }
 }

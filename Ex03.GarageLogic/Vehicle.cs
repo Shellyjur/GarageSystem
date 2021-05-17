@@ -7,8 +7,8 @@ namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
-        private String m_ModelName;
-        private String m_Licensing;
+        private readonly String m_ModelName;
+        private readonly String m_Licensing;
         private float m_PercentageOfEnergyleft;
         //Wheels m_wheels;
         private List<Wheels> m_WheelCollection;
@@ -19,7 +19,7 @@ namespace Ex03.GarageLogic
         {
             m_ModelName = i_ModelName;
             m_Licensing = i_Licensing;
-            m_PercentageOfEnergyleft = 0;//the calculation will come next
+            m_PercentageOfEnergyleft = i_PercentageOfEnergyleft;//the calculation will come next
             m_WheelCollection = new List<Wheels>();
             //m_Status = i_status;
         }
@@ -29,10 +29,10 @@ namespace Ex03.GarageLogic
             {
                 return m_ModelName;
             }
-            set
-            {
-                m_ModelName = value;
-            }
+            //set
+            //{
+            //    m_ModelName = value;
+            //}
         }
         public string Licensing
         {
@@ -40,10 +40,10 @@ namespace Ex03.GarageLogic
             {
                 return m_Licensing;
             }
-            set
-            {
-                m_Licensing = value;
-            }
+            //set
+            //{
+            //    m_Licensing = value;
+            //}
         }
         public float PercentageOfEnergyleft////איך לפצל לילדים שלכל אחד יש מקור אנרגייה אחר חשמל או דלק
         {
