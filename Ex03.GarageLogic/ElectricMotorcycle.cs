@@ -10,7 +10,7 @@ namespace Ex03.GarageLogic
         private int m_EngineVolume;
 
         public ElectricMotorcycle(Enum i_License, int i_EngineVolume, float i_BatteryTimeRemainingInHours, float i_MaximumBatteryTimeInHours, string i_ModelName, string i_Licensing) :
-            base(i_BatteryTimeRemainingInHours, i_MaximumBatteryTimeInHours, i_ModelName, i_Licensing)//סתם עשינו מספרים
+            base(i_BatteryTimeRemainingInHours, i_MaximumBatteryTimeInHours, i_ModelName, i_Licensing)
         {
             m_License = (eLicenseType)i_License;
             m_EngineVolume = i_EngineVolume;
@@ -22,17 +22,20 @@ namespace Ex03.GarageLogic
             {
                 return m_License;
             }
+
             set
             {
                 m_License = value;
             }
         }
+
         public int EngineVolume
         {
             get
             {
                 return m_EngineVolume;
             }
+
             set
             {
                 m_EngineVolume = value;

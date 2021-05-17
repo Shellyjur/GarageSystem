@@ -6,17 +6,6 @@ namespace Ex03.GarageLogic
 {
     internal class CreateObject
     {
-
-        //internal static Vehicle CreateConcretVehicle(eVehicleTypes type1)
-        //{ 
-
-        //    switch (type1)
-        //    {
-        //        case eVehicleTypes.ekectricalcar: return new elect
-        //    }
-
-
-        //}
         internal static ElectricCar CreateElectricCar(List<object> i_ElectricCarInfo)
         {
             ElectricCar electricCarObj = new ElectricCar((eAmountOfDoors)i_ElectricCarInfo[0], (eColorOfTheCar)i_ElectricCarInfo[1], (float)i_ElectricCarInfo[2], (float)i_ElectricCarInfo[3], (string)i_ElectricCarInfo[4], (string)i_ElectricCarInfo[5]);

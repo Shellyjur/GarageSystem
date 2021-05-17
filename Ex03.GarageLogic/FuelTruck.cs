@@ -10,7 +10,7 @@ namespace Ex03.GarageLogic
         private float m_MaximumCarryWeight;
 
         public FuelTruck(bool i_DangerousSubstance, float i_MaximumCarryWeight, eFuelType i_FuelType, float i_CurrentAmountOfFuelLiters, float i_MaximumAmountOfFuelLiters, string i_ModelName, string i_Licensing) :
-            base(i_FuelType, i_CurrentAmountOfFuelLiters, i_MaximumAmountOfFuelLiters, i_ModelName, i_Licensing)//סתם שלחנו דברים
+            base(i_FuelType, i_CurrentAmountOfFuelLiters, i_MaximumAmountOfFuelLiters, i_ModelName, i_Licensing)
         {
             m_DangerousSubstance = i_DangerousSubstance;
             m_MaximumCarryWeight = i_MaximumCarryWeight;
@@ -22,17 +22,20 @@ namespace Ex03.GarageLogic
             {
                 return m_DangerousSubstance;
             }
+
             set
             {
                 m_DangerousSubstance = value;
             }
         }
+
         public float MaximumCarryWeight
         {
             get
             {
                 return m_MaximumCarryWeight;
             }
+
             set
             {
                 m_MaximumCarryWeight = value;

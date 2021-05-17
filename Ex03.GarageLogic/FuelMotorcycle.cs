@@ -22,6 +22,7 @@ namespace Ex03.GarageLogic
             {
                 return m_License;
             }
+
             set
             {
                 m_License = value;
@@ -33,6 +34,7 @@ namespace Ex03.GarageLogic
             {
                 return m_EngineVolume;
             }
+
             set
             {
                 m_EngineVolume = value;

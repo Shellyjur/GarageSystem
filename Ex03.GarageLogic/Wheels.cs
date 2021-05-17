@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic
 {
     public class Wheels
     {
-        private readonly String m_Manufacturer;//static same model to all
+        private readonly String m_Manufacturer;
         private float m_CurrentAirPressure;
         private readonly float m_MaximumAirPressureByManufacturer;
         
@@ -16,6 +16,7 @@ namespace Ex03.GarageLogic
             m_CurrentAirPressure = i_CurrentAirPressure;
             m_MaximumAirPressureByManufacturer = i_MaximumAirPressureByManufacturer;
         }
+
         ////Properties:
         public string Manufacturer
         {
@@ -23,10 +24,6 @@ namespace Ex03.GarageLogic
             {
                 return m_Manufacturer;
             }
-            //set
-            //{
-            //    m_Manufacturer = value;
-            //}
         }
 
         public float CurrentAirPressure
@@ -35,30 +32,19 @@ namespace Ex03.GarageLogic
             {
                 return m_CurrentAirPressure;
             }
+
             set
             {
                 m_CurrentAirPressure = value;
             }
-
         }
+
         public float MaximumAirPressureByManufacturer
         {
             get
             {
                 return m_MaximumAirPressureByManufacturer;
             }
-            //set
-            //{
-            //    m_MaximumAirPressureByManufacturer = value;
-            //}
-        }
-
-
-
-        //not static - check why
-        public void Inflation(float i_MaxAir)//after exeption check? no exeption in air pressure
-        {
-            this.CurrentAirPressure = i_MaxAir;
         }
     }
 }

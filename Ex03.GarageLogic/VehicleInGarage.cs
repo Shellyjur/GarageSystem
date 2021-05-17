@@ -11,16 +11,15 @@ namespace Ex03.GarageLogic
         private string m_OwnerPhone;
         private eVehicleFixingStatus m_Status;
 
-        public VehicleInGarage()
-        {
-            m_Status = eVehicleFixingStatus.InRepairing;
-        }
+        //public VehicleInGarage()
+        //{
+        //    m_Status = eVehicleFixingStatus.InRepairing;
+        //}
         public VehicleInGarage(string i_VehicleOwner, string i_OwnerPhone)
         {
             m_VehicleOwner = i_VehicleOwner;
             m_OwnerPhone = i_OwnerPhone;
             m_Status = eVehicleFixingStatus.InRepairing;
-            //m_Status = (eVehicleFixingStatus) i_Status;
         }
         public VehicleInGarage(Vehicle i_CustomerVehicle, string i_VehicleOwner,
                     string i_OwnerPhone)
@@ -28,7 +27,7 @@ namespace Ex03.GarageLogic
             m_CustomerVehicle = i_CustomerVehicle;
             m_VehicleOwner = i_VehicleOwner;
             m_OwnerPhone = i_OwnerPhone;
-            //m_Status = (eVehicleFixingStatus) i_Status;
+            m_Status = eVehicleFixingStatus.InRepairing;
         }
 
         //properties
@@ -38,11 +37,11 @@ namespace Ex03.GarageLogic
             {
                 return m_CustomerVehicle;
             }
+
             set
             {
                 m_CustomerVehicle = value;
             }
-
         }
 
         public string CarOwner
@@ -51,6 +50,7 @@ namespace Ex03.GarageLogic
             {
                 return m_VehicleOwner;
             }
+
             set
             {
                 m_VehicleOwner = value;
@@ -63,11 +63,13 @@ namespace Ex03.GarageLogic
             {
                 return m_OwnerPhone;
             }
+
             set
             {
                 m_OwnerPhone = value;
             }
         }
+
         public eVehicleFixingStatus Status
         {
             get
@@ -80,7 +82,5 @@ namespace Ex03.GarageLogic
                 m_Status = value;
             }
         }
-
-
     }
 }

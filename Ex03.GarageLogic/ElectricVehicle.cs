@@ -15,6 +15,7 @@ namespace Ex03.GarageLogic
             m_BatteryTimeRemainingInHours = i_BatteryTimeRemainingInHours;
             m_MaximumBatteryTimeInHours = i_MaximumBatteryTimeInHours;
         }
+
         ////Properties:
         public float BatteryTimeRemainingInHours
         {
@@ -22,27 +23,21 @@ namespace Ex03.GarageLogic
             {
                 return m_BatteryTimeRemainingInHours;
             }
+
             set
             {
                 m_BatteryTimeRemainingInHours = value;
             }
         }
+
         public float MaximumBatteryTimeInHours
         {
             get
             {
                 return m_MaximumBatteryTimeInHours;
             }
-            //set
-            //{
-            //    m_MaximumBatteryTimeInHours = value;
-            //}
-
         }
-        //יכול להיות שלא צריך אבסטרקט כי אין
-        //הבדל בין הרכבים שמונעות עי חשמל לעומת רכבים שמונעים עי דלק
-        public abstract void BatteryCharging(float i_HoursToAdd);
-        
 
+        public abstract void BatteryCharging(float i_HoursToAdd);
     }
 }

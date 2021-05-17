@@ -10,7 +10,7 @@ namespace Ex03.GarageLogic
         private eColorOfTheCar m_CarColor;
        
         public FuelCar(Enum i_CarDoors, Enum i_CarColor,eFuelType i_FuelType, float i_CurrentAmountOfFuelLiters, float i_MaximumAmountOfFuelLiters, string i_ModelName, string i_Licensing) :
-            base(i_FuelType, i_CurrentAmountOfFuelLiters, i_MaximumAmountOfFuelLiters, i_ModelName, i_Licensing)//סתם שלחנו דברים
+            base(i_FuelType, i_CurrentAmountOfFuelLiters, i_MaximumAmountOfFuelLiters, i_ModelName, i_Licensing)
         {
             m_CarDoors = (eAmountOfDoors)i_CarDoors;
             m_CarColor = (eColorOfTheCar)i_CarColor;
@@ -22,6 +22,7 @@ namespace Ex03.GarageLogic
             {
                 return m_CarDoors;
             }
+
             set
             {
                 m_CarDoors = value;
@@ -33,26 +34,13 @@ namespace Ex03.GarageLogic
             {
                 return m_CarColor;
             }
+
             set
             {
                 m_CarColor = value;
             }
         }
-        //enum eColorOfTheCar
-        //{
-        //    Red,
-        //    Silver,
-        //    White,
-        //    Black,
-        //}
-
-        //enum eAmountOfDoors
-        //{
-        //    Two,
-        //    Three,
-        //    Four,
-        //    Five,
-        //}
+       
         public override void ToRefuelWithFuel(float i_AmountOfLitersToAdd)
         {
             CurrentAmountOfFuelLiters += i_AmountOfLitersToAdd;

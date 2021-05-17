@@ -16,15 +16,18 @@ namespace Ex03.ConsoleUI
                 return m_GarageObj;
             }
         }
+
         public static void Main()
         {
             EntryPoint();
         }
+
         public static void EntryPoint()
         {
             PrintOptions();
             UserOption();
         }
+
         public static void PrintOptions()
         {
             Console.WriteLine("Please choose an option\n");
@@ -35,11 +38,13 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("(5)---> Refuel vehicle operated by fuel\n");
             Console.WriteLine("(6)---> Charge vehicle operated by electricity\n");
             Console.WriteLine("(7)---> Show vehicle full data\n");
+            Console.WriteLine("(8)---> Exit the garage system\n");
         }
+
         public static void UserOption()
         {
             string userInput = String.Empty;
-            int userPick;
+            int userPick = 0;
             bool userOptionFlag = true;
 
             while (userOptionFlag)
@@ -64,7 +69,6 @@ namespace Ex03.ConsoleUI
 
                             break;
                         case 2:
-
                             FilterStatus();
                             userOptionFlag = DoYouWantToContinue();
                             if (userOptionFlag == true)
@@ -75,6 +79,7 @@ namespace Ex03.ConsoleUI
                             {
                                 userOptionFlag = false;
                             }
+
                             break;
                         case 3:
                             ChangeVehicleStatus();
@@ -87,6 +92,7 @@ namespace Ex03.ConsoleUI
                             {
                                 userOptionFlag = false;
                             }
+
                             break;
                         case 4:
                             InflateVehicleWheelsToMaximum();
@@ -99,6 +105,7 @@ namespace Ex03.ConsoleUI
                             {
                                 userOptionFlag = false;
                             }
+
                             break;
                         case 5:
                             RefuelVehicleOperatedByFuel();
@@ -111,6 +118,7 @@ namespace Ex03.ConsoleUI
                             {
                                 userOptionFlag = false;
                             }
+
                             break;
                         case 6:
                             ChargeVehicleOperatedByElectricity();
@@ -123,6 +131,7 @@ namespace Ex03.ConsoleUI
                             {
                                 userOptionFlag = false;
                             }
+
                             break;
                         case 7:
                             ShowVehicleFullData();
@@ -135,14 +144,16 @@ namespace Ex03.ConsoleUI
                             {
                                 userOptionFlag = false;
                             }
+
                             break;
-
+                        case 8:
+                            userOptionFlag = false;
+                            break;
                     }
-
                 }
+
                 catch (FormatException fex)
                 {
-                    //Console.WriteLine("You entered a wrong input");
                     Console.WriteLine(fex.Message);
                     EntryPoint();
                 }
@@ -156,7 +167,6 @@ namespace Ex03.ConsoleUI
 
             Console.WriteLine("Do you want to return to the main menu for more options? \n1 -> Yes OR 2 -> No");
             input = Console.ReadLine();
-            
             while (input != "1" && input != "2")
             {
                 Console.WriteLine("Wrong choice. Enter again");
@@ -174,11 +184,9 @@ namespace Ex03.ConsoleUI
         public static void InsertVehicleValidation()
         {
             bool flag = false;
-            //uint licenseNumber;
             string licenseInput = string.Empty;
             bool vehicleExists = false;
             string toContinue = string.Empty;
-
 
             while (!flag)
             {
@@ -191,11 +199,10 @@ namespace Ex03.ConsoleUI
                     if (vehicleExists == true)
                     {
                         Console.WriteLine("The vehicle exists in the System. The status was updated.");
-                        Console.WriteLine("Do you want to continue to other options ?\npress 1 for YES or 2 for NO");
+                        Console.WriteLine("Do you want to continue to other options?\npress 1 for YES or 2 for NO");
                         toContinue = Console.ReadLine();
                         if (toContinue == "1")
                         {
-                            //להתייחס לעובדה שאם הוא רוצה להמשיך אם אותו רכב. או שלא יזין עוד פעם מספר רישוי
                             EntryPoint();
                         }
                     }
@@ -203,17 +210,18 @@ namespace Ex03.ConsoleUI
                     {
                         WhichVehicleInsertToTheGarage(licenseInput);
                     }
+
                     flag = true;
                 }
+
                 catch (FormatException fex)
                 {
-                    //Console.WriteLine("You entered an invalid license. Please try again.");
                     Console.WriteLine(fex.Message);
                 }
             }
         }
 
-        public static void WhichVehicleInsertToTheGarage(string licenseInput)
+        public static void WhichVehicleInsertToTheGarage(string i_LicenseInput)
         {
             string userTypeChoice = string.Empty;
             string userConcreteVehicle = string.Empty;
@@ -223,7 +231,7 @@ namespace Ex03.ConsoleUI
             List<object> concreteVehicleParameters = new List<object>();
             List<object> wheelsInformation = new List<object>();
 
-            GeneralInformation(out customerName, out customerPhoneNumber, licenseInput, out vehicleModel);
+            GeneralInformation(out customerName, out customerPhoneNumber, out vehicleModel);
             VehicleInGarage temporaryVehicleInGarage = new VehicleInGarage(customerName, customerPhoneNumber);
             Console.WriteLine("Which type of vehicle you want to insert to the garage?");
             Console.WriteLine("(1) electric vehicle\n(2) fuel vehicle");
@@ -244,14 +252,11 @@ namespace Ex03.ConsoleUI
                     userConcreteVehicle = Console.ReadLine();
                 }
 
-                if (userConcreteVehicle == "1")//electric car
+                if (userConcreteVehicle == "1")
                 {
                     Enum amountOfDoors, colorOfCar;
                     float batteryTimeRemainingInHours, maximumBatteryTimeInHours = 3.2f;
 
-                    ////wheels info function///////******
-                    ///////create obj of electric car
-                    //InformationAboutTheOwner(out customerName, out customerPhoneNumber, licenseInput);
                     InsertWheelsInformation(eAllVehicleTypes.ElectricCar, out wheelsInformation);
                     InformationAboutTheFuelAndElectricCar(out amountOfDoors, out colorOfCar);
                     CreateElectricVehicle(out batteryTimeRemainingInHours, maximumBatteryTimeInHours);
@@ -260,14 +265,12 @@ namespace Ex03.ConsoleUI
                     concreteVehicleParameters.Add(batteryTimeRemainingInHours);
                     concreteVehicleParameters.Add(maximumBatteryTimeInHours);
                     concreteVehicleParameters.Add(vehicleModel);
-                    concreteVehicleParameters.Add(licenseInput);
+                    concreteVehicleParameters.Add(i_LicenseInput);
                     temporaryVehicleInGarage.CustomerVehicle = m_GarageObj.CreateVehicle(eAllVehicleTypes.ElectricCar, concreteVehicleParameters, wheelsInformation);
-
-                    m_GarageObj.GarageInventory.Add(licenseInput, temporaryVehicleInGarage);
+                    m_GarageObj.GarageInventory.Add(i_LicenseInput, temporaryVehicleInGarage);
                 }
                 else
                 {
-                    ///////create obj of electric motorcycle
                     Enum licenceType;
                     int engineVolume;
                     float batteryTimeRemainingInHours, maximumBatteryTimeInHours = 1.8f;
@@ -280,9 +283,9 @@ namespace Ex03.ConsoleUI
                     concreteVehicleParameters.Add(batteryTimeRemainingInHours);
                     concreteVehicleParameters.Add(maximumBatteryTimeInHours);
                     concreteVehicleParameters.Add(vehicleModel);
-                    concreteVehicleParameters.Add(licenseInput);
+                    concreteVehicleParameters.Add(i_LicenseInput);
                     temporaryVehicleInGarage.CustomerVehicle = m_GarageObj.CreateVehicle(eAllVehicleTypes.ElectricMotorcycle, concreteVehicleParameters, wheelsInformation);
-                    m_GarageObj.GarageInventory.Add(licenseInput, temporaryVehicleInGarage);
+                    m_GarageObj.GarageInventory.Add(i_LicenseInput, temporaryVehicleInGarage);
                 }
             }
 
@@ -296,13 +299,11 @@ namespace Ex03.ConsoleUI
                     userConcreteVehicle = Console.ReadLine();
                 }
 
-                if (userConcreteVehicle == "3")//fuel car
+                if (userConcreteVehicle == "3")
                 {
-                    ///////create obj of fuel car
-                    Enum amountOfDoors, colorOfCar;
-                    float currentFuelAmount, maxFuelAmount;
+                    Enum amountOfDoors = eAmountOfDoors.None, colorOfCar = eColorOfTheCar.None;
+                    float currentFuelAmount = 0, maxFuelAmount = 45f;
 
-                    maxFuelAmount = 45f;
                     InsertWheelsInformation(eAllVehicleTypes.FuelCar, out wheelsInformation);
                     InformationAboutTheFuelAndElectricCar(out amountOfDoors, out colorOfCar);
                     CreateFuelVehicle(out currentFuelAmount, maxFuelAmount);
@@ -312,19 +313,15 @@ namespace Ex03.ConsoleUI
                     concreteVehicleParameters.Add(currentFuelAmount);
                     concreteVehicleParameters.Add(maxFuelAmount);
                     concreteVehicleParameters.Add(vehicleModel);
-                    concreteVehicleParameters.Add(licenseInput);
+                    concreteVehicleParameters.Add(i_LicenseInput);
                     temporaryVehicleInGarage.CustomerVehicle = m_GarageObj.CreateVehicle(eAllVehicleTypes.FuelCar, concreteVehicleParameters, wheelsInformation);
-                    m_GarageObj.GarageInventory.Add(licenseInput, temporaryVehicleInGarage);
-
+                    m_GarageObj.GarageInventory.Add(i_LicenseInput, temporaryVehicleInGarage);
                 }
                 else if (userConcreteVehicle == "4")
                 {
-                    ///////create obj of fuel motorcycle
-                    Enum licenceType;
-                    //eLicenseType nullLicneseType = eLicenseType.Null;
-                    //eFuelType nullFuelType = eFuelType.Null;
-                    int engineVolume;
-                    float currentFuelAmount;
+                    Enum licenceType = eLicenseType.None;
+                    int engineVolume = 0;
+                    float currentFuelAmount = 0f;
                     float maxFuelAmount = 6f;
 
                     InsertWheelsInformation(eAllVehicleTypes.FuelMotorcycle, out wheelsInformation);
@@ -336,17 +333,14 @@ namespace Ex03.ConsoleUI
                     concreteVehicleParameters.Add(currentFuelAmount);
                     concreteVehicleParameters.Add(maxFuelAmount);
                     concreteVehicleParameters.Add(vehicleModel);
-                    concreteVehicleParameters.Add(licenseInput);
+                    concreteVehicleParameters.Add(i_LicenseInput);
                     temporaryVehicleInGarage.CustomerVehicle = m_GarageObj.CreateVehicle(eAllVehicleTypes.FuelMotorcycle, concreteVehicleParameters, wheelsInformation);
-                    m_GarageObj.GarageInventory.Add(licenseInput, temporaryVehicleInGarage);
-
+                    m_GarageObj.GarageInventory.Add(i_LicenseInput, temporaryVehicleInGarage);
                 }
-                else// 5
+                else
                 {
-                    //////create obj of fuel truck
-                    bool dangerousSubstance;
-                    float maximumCarryWeight, currentFuelAmount, maxFuelAmount;
-
+                    bool dangerousSubstance = false;
+                    float maximumCarryWeight = 0f, currentFuelAmount = 0f, maxFuelAmount = 0f;
 
                     maxFuelAmount = 120f;
                     InsertWheelsInformation(eAllVehicleTypes.FuelTruck, out wheelsInformation);
@@ -358,34 +352,30 @@ namespace Ex03.ConsoleUI
                     concreteVehicleParameters.Add(currentFuelAmount);
                     concreteVehicleParameters.Add(maxFuelAmount);
                     concreteVehicleParameters.Add(vehicleModel);
-                    concreteVehicleParameters.Add(licenseInput);
+                    concreteVehicleParameters.Add(i_LicenseInput);
                     temporaryVehicleInGarage.CustomerVehicle = m_GarageObj.CreateVehicle(eAllVehicleTypes.FuelTruck, concreteVehicleParameters, wheelsInformation);
-                    m_GarageObj.GarageInventory.Add(licenseInput, temporaryVehicleInGarage);
+                    m_GarageObj.GarageInventory.Add(i_LicenseInput, temporaryVehicleInGarage);
                 }
             }
-
         }
 
         public static List<object> InsertWheelsInformation(eAllVehicleTypes i_VehicleType, out List<object> i_WheelCollection)
         {
             string manufacturerName = string.Empty;
             i_WheelCollection = null;
-            //float currentAirPressure = 0;
 
-            Console.WriteLine("What is your manufacturer wheels name ? (up to 10 characters)");
+            Console.WriteLine("What is your manufacturer wheels name? (up to 10 characters)");
             manufacturerName = Console.ReadLine();
             while (manufacturerName.Length > 10)
             {
                 Console.WriteLine("You entered a wrong input");
-                Console.WriteLine("What is your manufacturer wheels name ? (up to 10 characters)");
+                Console.WriteLine("What is your manufacturer wheels name? (up to 10 characters)");
                 manufacturerName = Console.ReadLine();
             }
 
             switch (i_VehicleType)
             {
                 case eAllVehicleTypes.ElectricCar:
-                //WheelsInformation(4, manufacturerName, out i_WheelCollection, 32f);
-                //return i_WheelCollection;
                 case eAllVehicleTypes.FuelCar:
                     WheelsInformation(4, manufacturerName, out i_WheelCollection, 32f);
                     return i_WheelCollection;
@@ -401,41 +391,36 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        public static void GeneralInformation(out string o_CustomerName, out string o_CustomerPhoneNumber, string i_LicenseInput, out string o_VehicleModel)
+        public static void GeneralInformation(out string o_CustomerName, out string o_CustomerPhoneNumber, out string o_VehicleModel)
         {
             o_CustomerName = string.Empty;
             o_CustomerPhoneNumber = string.Empty;
             o_VehicleModel = string.Empty;
-            //NAME
-            Console.WriteLine("What is your first and last name? (up to 20 letters)");// just letters and length 20
+            
+            Console.WriteLine("What is your first and last name? (up to 20 letters)");
             o_CustomerName = Console.ReadLine();
-
-            while (!ValidateCustomerName(o_CustomerName))//while name isnt correct
+            while (!ValidateCustomerName(o_CustomerName))
             {
-                Console.WriteLine("What is your name ? Please write correctly! (up to 20 letters)");
+                Console.WriteLine("What is your name? Please write correctly! (up to 20 letters)");
                 o_CustomerName = Console.ReadLine();
             }
 
-            //PHONE NUMBER
-            Console.WriteLine("What is your phone number? Please write only digits (exactly 6 numbers)");// length 6 
+            Console.WriteLine("What is your phone number? Please write only digits (exactly 6 numbers)");
             o_CustomerPhoneNumber = Console.ReadLine();
-
             while (!ValidateCustomerPhoneNumber(o_CustomerPhoneNumber))
             {
-                Console.WriteLine("What is your phone number? Please write correctly (exactly 6 numbers)");// length 6 
+                Console.WriteLine("What is your phone number? Please write correctly (exactly 6 numbers)");
                 o_CustomerPhoneNumber = Console.ReadLine();
             }
 
-            //MODEL NAME
-            Console.WriteLine("What is your vehicle's model up to 10 characters");
+            Console.WriteLine("What is your vehicle's model? (up to 10 characters)");
             o_VehicleModel = Console.ReadLine();
             while (o_VehicleModel.Length > 10)
             {
                 Console.WriteLine("Wrong input! Please try again.");
-                Console.WriteLine("What is your vehicle's model up to 10 characters");
+                Console.WriteLine("What is your vehicle's model? (up to 10 characters)");
                 o_VehicleModel = Console.ReadLine();
             }
-
         }
 
         public static bool ValidateCustomerName(string i_CustomerName)
@@ -480,7 +465,6 @@ namespace Ex03.ConsoleUI
             }
 
             return checkingPhoneNumber;
-
         }
 
         public static void InformationAboutTheFuelAndElectricMotorcycle(out Enum o_LicenseType, out int o_EngineVolume)
@@ -492,7 +476,7 @@ namespace Ex03.ConsoleUI
 
             while (!engineInputFlag)
             {
-                Console.WriteLine("What is your engine volume");
+                Console.WriteLine("What is your engine volume?");
                 engineInput = Console.ReadLine();
                 try
                 {
@@ -502,9 +486,9 @@ namespace Ex03.ConsoleUI
                     }
                     engineInputFlag = true;
                 }
+
                 catch (FormatException ex)
                 {
-                    //Console.WriteLine("You entered an invalid input. Please try again.");
                     Console.WriteLine(ex.Message);
                 }
             }
@@ -520,13 +504,12 @@ namespace Ex03.ConsoleUI
             o_LicenseType = (eLicenseType)Enum.Parse(typeof(eLicenseType), licenseInput);
         }
 
-        public static void InformationAboutTheFuelAndElectricCar(out Enum o_AmountOfDoors, out Enum o_ColorOfCar)//color and doors
+        public static void InformationAboutTheFuelAndElectricCar(out Enum o_AmountOfDoors, out Enum o_ColorOfCar)
         {
             string color = string.Empty;
             string doors = string.Empty;
             string updatedColor = string.Empty;
 
-            //COLOR
             Console.WriteLine("What is the color of the car?\nred/ silver/ white/ black");
             color = Console.ReadLine();
             while (color != "red" && color != "silver" && color != "white" && color != "black")
@@ -536,25 +519,21 @@ namespace Ex03.ConsoleUI
             }
 
             updatedColor += char.ToUpper(color[0]);
-            for (int i = 1; i < color.Length; i++)
+            for (int i = 1 ; i < color.Length ; i++)
             {
                 updatedColor += color[i];
             }
 
-            // userChoiceForVehicleType = (eVehicleTypes)Enum.Parse(typeof(RegularVehicle.eTypeOfFuel), i_UserChoice);
             o_ColorOfCar = (eColorOfTheCar)Enum.Parse(typeof(eColorOfTheCar), updatedColor);
-            //DOORS
-            Console.WriteLine("How many doors the car has ? 2/ 3/ 4/ 5");
+            Console.WriteLine("How many doors the car has? 2/ 3/ 4/ 5");
             doors = Console.ReadLine();
             while (doors != "2" && doors != "3" && doors != "4" && doors != "5")
             {
-                Console.WriteLine("Please enter a correct amount of doors ! 2/ 3/ 4/ 5");
+                Console.WriteLine("Please enter a correct amount of doors! 2/ 3/ 4/ 5");
                 doors = Console.ReadLine();
             }
 
             o_AmountOfDoors = (eAmountOfDoors)Enum.Parse(typeof(eAmountOfDoors), doors);
-            //CreateFuelCar(color, doors, i_CustomerName, i_CustomerPhoneNumber, i_LicenseInput);
-
         }
 
         public static void CreateElectricVehicle(out float o_BatteryTimeRemainingInHours, float i_MaximumBatteryTimeInHours)
@@ -590,77 +569,28 @@ namespace Ex03.ConsoleUI
 
                     timeRemainingFlag = true;
                 }
+
                 catch (FormatException ex)
                 {
-                    //Console.WriteLine("You entered an invalid input. Please try again.");
                     Console.WriteLine(ex.Message);
                 }
+
                 catch (ValueOutOfRangeException voore)
                 {
                     Console.WriteLine(voore.Message);
-                   // Console.WriteLine("You entered amount out of range. Please try again.");
                 }
             }
         }
-
 
         public static void CreateFuelVehicle(out float o_CurrentFuelAmount, float i_MaxFuelAmount)
         {
             string typeOfFuel = string.Empty;
             string maxFuel = string.Empty;
             string currentFuel = string.Empty;
-            bool fuelTypeFlag = false;
-            bool maxFuelFlag = false;
             bool currentFuelFlag = false;
-            //o_MaxFuelAmount = 45;
+     
             o_CurrentFuelAmount = 0;
 
-            ////FUEL TYPE
-            //Console.WriteLine("Please enter the fuel type : Soler/ Octan95/ Octan96/ Octan98");
-            //typeOfFuel = Console.ReadLine();
-            //while (!fuelTypeFlag)
-            //{
-            //    if (typeOfFuel != "Soler" && typeOfFuel != "Octan95" && typeOfFuel != "Octan96" && typeOfFuel != "Octan98")
-            //    {
-            //        Console.WriteLine("Please enter the  CORRECT fuel type : Soler/ Octan95/ Octan96/ Octan98");
-            //        typeOfFuel = Console.ReadLine();
-            //    }
-            //    else
-            //    {
-            //        fuelTypeFlag = true;
-            //    }
-            //}
-
-            //o_FuelType = (eFuelType)Enum.Parse(typeof(eFuelType), typeOfFuel);
-            ////MAX FUEL
-            //while (!maxFuelFlag)
-            //{
-            //    try
-            //    {
-            //        Console.WriteLine("Please enter the max amount of fuel in liters");
-            //        maxFuel = Console.ReadLine();
-            //        if (!float.TryParse(maxFuel, out o_MaxFuelAmount))
-            //        {
-            //            throw new FormatException();
-            //        }
-
-            //        if (o_MaxFuelAmount < 0f)
-            //        {
-            //            throw new ValueOutOfRangeException(0, 45f);
-            //        }
-            //        maxFuelFlag = true;
-            //    }
-            //    catch (FormatException ex)
-            //    {
-            //        Console.WriteLine("You entered an invalid amount. Please try again.");
-            //    }
-            //    catch (ValueOutOfRangeException voore)
-            //    {
-            //        Console.WriteLine("You entered amount out of range. Please try again.");
-            //    }
-            //}
-
-            //CURRENT FUEL
             while (!currentFuelFlag)
             {
                 try
@@ -693,15 +623,15 @@ namespace Ex03.ConsoleUI
 
                     currentFuelFlag = true;
                 }
+
                 catch (FormatException ex)
                 {
-                    //Console.WriteLine("You entered a wrong input. Please try again.");
-
+                    Console.WriteLine(ex.Message);
                 }
+
                 catch (ValueOutOfRangeException voore)
                 {
                     Console.WriteLine(voore.Message);
-                    //Console.WriteLine("You entered a unreasonable value. Please try again.");
                 }
             }
         }
@@ -714,11 +644,11 @@ namespace Ex03.ConsoleUI
 
             o_DangerousSubstance = false;
             o_MaximumCarryWeight = 0;
-            Console.WriteLine("Does the truck carry dangerous substance: yes OR no (only lower case letters)");
+            Console.WriteLine("Does the truck carry dangerous substance: yes OR no? (only lower case letters)");
             dangerousSubstanceInput = Console.ReadLine();
             while (dangerousSubstanceInput != "yes" && dangerousSubstanceInput != "no")
             {
-                Console.WriteLine("you entered a wrong choice. Does the truck carry dangerous substance: yes OR no");
+                Console.WriteLine("you entered a wrong choice. Does the truck carry dangerous substance: yes OR no?");
                 dangerousSubstanceInput = Console.ReadLine();
             }
 
@@ -740,10 +670,10 @@ namespace Ex03.ConsoleUI
 
                     maximumCarryWeightFlag = true;
                 }
+
                 catch (FormatException ex)
                 {
                     Console.WriteLine(ex.Message);
-                    //Console.WriteLine("You entered a wrong input. Please try again.");
                 }
             }
         }
@@ -772,15 +702,14 @@ namespace Ex03.ConsoleUI
                     }
                     currentAirFlag = true;
                 }
+
                 catch (FormatException fex)
                 {
-                    //Console.WriteLine("You entered an invalid license");
                     Console.WriteLine(fex.Message);
-
                 }
+
                 catch (ValueOutOfRangeException voore)
                 {
-                    //Console.WriteLine("You entered amount out of range. Please try again.");
                     Console.WriteLine(voore.Message);
                 }
             }
@@ -791,21 +720,22 @@ namespace Ex03.ConsoleUI
             i_WheelCollection.Add(i_NumberOfWheels);
         }
 
-        //// SEIF 2
         public static void FilterStatus()
         {
             string withFilter = string.Empty;
 
-            Console.WriteLine("Do you want to see the data filtered by specific status or not. press:\n1 -> yes\n2-> no");
+            Console.WriteLine("Do you want to see the data filtered by specific status or not? press:\n1 -> yes\n2-> no");
             withFilter = Console.ReadLine();
             while (withFilter != "1" && withFilter != "2")
             {
                 Console.WriteLine("Wrong input try again");
-                Console.WriteLine("Do you want to see the data filtered by specific status or not. press:\n1 -> yes\n2-> no");
+                Console.WriteLine("Do you want to see the data filtered by specific status or not? press:\n1 -> yes\n2-> no");
                 withFilter = Console.ReadLine();
             }
+
             ShowVehiclesLicensingNumbers(withFilter);
         }
+
         public static void ShowVehiclesLicensingNumbers(string i_WithFilter)
         {
             string statusChoice = string.Empty;
@@ -831,7 +761,6 @@ namespace Ex03.ConsoleUI
                     {
                         Console.WriteLine(valueObject.Key);
                     }
-                    Console.WriteLine("\n");
                 }
             }
             else
@@ -843,7 +772,7 @@ namespace Ex03.ConsoleUI
                 }
             }
         }
-        //SEIF 3
+       
         public static void ChangeVehicleStatus()
         {
             string licenseId = string.Empty;
@@ -862,6 +791,7 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine("To which status you would like to change:\n(1)Fixed\n(2)InRepairing\n(3)Paid");
                     userChoice = Console.ReadLine();
                 }
+
                 foreach (KeyValuePair<string, VehicleInGarage> valueObject in m_GarageObj.GarageInventory)
                 {
                     if (valueObject.Key == licenseId)
@@ -882,7 +812,7 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine("This license does not exist in the system hence we can't change the status");
             }
         }
-        //SEIF 4
+
         public static void InflateVehicleWheelsToMaximum()
         {
             string licenseId = string.Empty;
@@ -898,7 +828,7 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine("This vehicle does not exist in the system");
             }
         }
-        //SEIF 5
+        
         public static void RefuelVehicleOperatedByFuel()
         {
             string licenseId = string.Empty;
@@ -923,18 +853,12 @@ namespace Ex03.ConsoleUI
                         typeOfFuel = Console.ReadLine();
                         try
                         {
-                            //while (!fuelTypeFlag)
-                            while (typeOfFuel != "Soler" && typeOfFuel != "Octan95" && typeOfFuel != "Octan96" &&
-                                typeOfFuel != "Octan98")
+                            while (typeOfFuel != "Soler" && typeOfFuel != "Octan95" && typeOfFuel != "Octan96" && typeOfFuel != "Octan98")
                             {
                                 Console.WriteLine("Please enter the  CORRECT fuel type : Soler/ Octan95/ Octan96/ Octan98");
                                 typeOfFuel = Console.ReadLine();
                             }
-                            //else
-                            //{
-                            //    fuelTypeFlag = true;
-                            //}
-
+                            
                             fuelType = (eFuelType)Enum.Parse(typeof(eFuelType), typeOfFuel);
                             m_GarageObj.FuelTypeMatch(licenseId, fuelType);
                             Console.WriteLine("How much fuel you want to refuel?");
@@ -942,18 +866,19 @@ namespace Ex03.ConsoleUI
                             m_GarageObj.CheckFuelAmount(amountToRefuel, licenseId);
                             fuelTypeFlag = true;
                         }
+
                         catch (ArgumentException ae)
                         {
                             Console.WriteLine(ae.Message);
                         }
+
                         catch (FormatException ex)
                         {
-                            //Console.WriteLine("You entered wrong input. Please try again");
                             Console.WriteLine(ex.Message);
                         }
+
                         catch (ValueOutOfRangeException voore)
                         {
-                            //Console.WriteLine("You entered amount out of range. Please try again.");
                             Console.WriteLine(voore.Message);
                         }
                     }
@@ -961,8 +886,7 @@ namespace Ex03.ConsoleUI
                     {
                         Console.WriteLine("THIS IS AN ELECTRIC OPARATED VEHICLE!!");
                         fuelTypeFlag = true;
-                    }
-                     
+                    }   
                 }
                 else 
                 {
@@ -970,14 +894,13 @@ namespace Ex03.ConsoleUI
                         licenseId = string.Empty;
                 }
             }
-               
         }
-        //seif 6
+
+        
        public static void ChargeVehicleOperatedByElectricity()
        {
            string licenseId = string.Empty;
            string minutesToCharge = string.Empty;
-         //  float updatedMinutesToCharge = 0;
            bool minutesToChargeFlag = false;
 
            Console.WriteLine("Please enter the vehicle license:");
@@ -995,14 +918,14 @@ namespace Ex03.ConsoleUI
                             m_GarageObj.CheckMinutesAmount(minutesToCharge, licenseId);
                             minutesToChargeFlag = true;
                         }
+
                         catch (FormatException ex)
                         {
-                            //Console.WriteLine("You entered wrong input. Please try again.");
                             Console.WriteLine(ex.Message);
                         }
+
                         catch (ValueOutOfRangeException voore)
                         {
-                            //Console.WriteLine("You entered amount out of range. Please try again.");
                             Console.WriteLine(voore.Message);
                         }
                     }
@@ -1019,13 +942,11 @@ namespace Ex03.ConsoleUI
                 }
             }
        }
-        //seif 7
+
         public static void ShowVehicleFullData()
         {
             string licenseId = string.Empty;
-            //List<object> fullInformation = new List<object>();
             string fullInformation = string.Empty;
-
 
             Console.WriteLine("Please enter the vehicle license:");
             licenseId = Console.ReadLine();
@@ -1038,7 +959,6 @@ namespace Ex03.ConsoleUI
             {
                 Console.WriteLine("This vehicle does not exist in the system");
             }
-            
         }
     }
 }

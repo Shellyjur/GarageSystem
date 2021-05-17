@@ -9,51 +9,43 @@ namespace Ex03.GarageLogic
     {
         private readonly String m_ModelName;
         private readonly String m_Licensing;
-        private float m_PercentageOfEnergyleft;
-        //Wheels m_wheels;
+        private float m_PercentageOfEnergyLeft;
         private List<Wheels> m_WheelCollection;
-        //private eVehicleFixingStatus m_Status;
 
-        public Vehicle(){ }        
-        public Vehicle(string i_ModelName, string i_Licensing, float i_PercentageOfEnergyleft)
+        public Vehicle(string i_ModelName, string i_Licensing, float i_PercentageOfEnergyLeft)
         {
             m_ModelName = i_ModelName;
             m_Licensing = i_Licensing;
-            m_PercentageOfEnergyleft = i_PercentageOfEnergyleft;//the calculation will come next
+            m_PercentageOfEnergyLeft = i_PercentageOfEnergyLeft;//the calculation will come next
             m_WheelCollection = new List<Wheels>();
-            //m_Status = i_status;
         }
+
         public string ModelName
         {
             get
             {
                 return m_ModelName;
             }
-            //set
-            //{
-            //    m_ModelName = value;
-            //}
         }
+
         public string Licensing
         {
             get
             {
                 return m_Licensing;
             }
-            //set
-            //{
-            //    m_Licensing = value;
-            //}
         }
-        public float PercentageOfEnergyleft////איך לפצל לילדים שלכל אחד יש מקור אנרגייה אחר חשמל או דלק
+
+        public float PercentageOfEnergyleft
         {
             get
             {
-                return m_PercentageOfEnergyleft;
+                return m_PercentageOfEnergyLeft;
             }
+
             set
             {
-                m_PercentageOfEnergyleft = value;
+                m_PercentageOfEnergyLeft = value;
             }
         }
 
@@ -63,31 +55,11 @@ namespace Ex03.GarageLogic
             {
                 return m_WheelCollection;
             }
-            set// אוטו - 4 גלגלים 
+
+            set 
             {
                 m_WheelCollection = value;
             }
-         }
-
-        //public eVehicleFixingStatus Status
-        //{
-        //    get
-        //    {
-        //        return m_Status;
-        //    }
-
-        //    set
-        //    {
-        //        m_Status = value; 
-        //    }
-        //}
-
-        public void AddWheelsToList(Wheels wheel)//נגיד שיש אוטו עם 4 גלגלים אז נוסיף את ה 4 גלגלים לליסט של האוטו
-        {
-            m_WheelCollection.Add(wheel);
         }
-
-        
-
     }
 }

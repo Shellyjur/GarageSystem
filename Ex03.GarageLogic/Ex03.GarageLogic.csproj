@@ -50,7 +50,6 @@
     <Compile Include="FuelTruck.cs" />
     <Compile Include="FuelVehicle.cs" />
     <Compile Include="Garage.cs" />
-    <Compile Include="GarageManager.cs" />
     <Compile Include="ValueOutOfRangeException .cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="VehicleInGarage.cs" />
